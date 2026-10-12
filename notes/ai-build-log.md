@@ -223,3 +223,21 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
 - **Learned:**
   - When a test fails, find out whether the page or the test is wrong. Three of my four failure types were the test.
   - Read the audit details before fixing: the slowest element on desktop wasn't the photo I assumed.
+
+## 14. Phase 6: write-up drafts, and two bugs the comparison image caught (13 Oct)
+- **Prompts:**
+  - *"no need to deploy, we will do it on Netlify, I will do this myself"*: I chose the hosting and deploy it myself.
+  - *"yes"*: start the write-ups.
+- **AI did:**
+  - Drafted `docs/ai-build-notes.md`, `docs/cro-decisions.md` (8 decisions), `docs/one-more-day.md` and `docs/video-outline.md` from this log, `notes/real-facts.md` and `notes/test-results.md`, then checked every number against those files.
+  - Made side-by-side "current site vs redesign" images and feature screenshots in `docs/images/`.
+- **Bug 1 – the bottom bar hid the hero buttons on phones:**
+  - **How it was found:** the side-by-side image for the CRO doc showed the fixed bottom bar covering "Shop New In" and "Best Sellers". All 51 tests had passed, because the first-screen test only checked the buttons were inside the screen.
+  - **Fix:** the hero height now also subtracts the bar (`--bottom-bar` token), and the test checks the buttons against the bar's top edge. Measured: buttons end at 580 px, the bar starts at 607 px (iPhone 13).
+- **Bug 2 – the offer bar lost its spaces:**
+  - **What happened:** "Free UK mainland **deliveryon** orders over £300". When the links became flex boxes (to make them 44 px tall), flex layout dropped the spaces between the bold part and the plain text.
+  - **Fix:** an inner span, plus a new test that checks the exact wording.
+- **Result:** 55 tests pass at 4 sizes.
+- **Learned:**
+  - Making something to show people (the comparison image) was the best test of the day. Look at the whole screen the way a buyer would, not just at what the tests measure.
+  - A fix in one place (bigger tap targets) can break another (the spaces).

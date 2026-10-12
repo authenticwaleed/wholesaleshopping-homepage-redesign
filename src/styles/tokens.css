@@ -62,6 +62,7 @@
 
   /* Sizing */
   --tap: 44px; /* minimum tap target */
+  --bottom-bar: calc(56px + env(safe-area-inset-bottom)); /* fixed bar on phones (BottomNav.astro) */
 
   /* Layers */
   --z-header: 50;

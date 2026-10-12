@@ -27,7 +27,7 @@ Build a working, mobile-first homepage concept for WholesaleShopping.co.uk. It t
 | Styling | Plain CSS, mobile-first, with design tokens (CSS variables) | Readable, with consistent spacing and type |
 | Data | A snapshot of real products from the store's public Shopify JSON | Real names, pack prices, photos and variant IDs |
 | Links | Products and collections open the live wholesaleshopping.co.uk pages. Checkout uses a Shopify cart link | Every link works, and the journey ends at the real checkout |
-| Hosting | Vercel (free) | One-command deploy, HTTPS and preview links |
+| Hosting | Netlify, deployed by you (changed from Vercel on 13 Oct) | Build command `npm run build`, publish directory `dist`, Node 22.12 or later |
 | Testing | Playwright, Lighthouse and a real phone | Shows that the interactions work at 4 screen sizes |
 | Indexing | `noindex` meta tag and a small "concept" label in the footer | Avoids duplicate content and confusion with the real site |
 
@@ -307,14 +307,14 @@ wholesaleshopping-homepage-redesign/
 
 ### Phase 5: Deploy (14 Oct, midday)
 - [ ] 5.1 Refresh the product data and make a production build.
-- [ ] 5.2 Deploy to Vercel. You log in once with `! npx vercel login`.
+- [ ] 5.2 You deploy to Netlify: build command `npm run build`, publish directory `dist`, Node 22.12 or later.
 - [ ] 5.3 Test the live link on desktop and on your phone, and re-run Playwright against it.
 
 ### Phase 6: Write-ups and video (14 Oct, afternoon)
-- [ ] 6.1 Draft `docs/ai-build-notes.md` from the log (tools, process, prompts, what went wrong, the fix, what you learned). You rewrite it in your own words.
-- [ ] 6.2 Draft `docs/cro-decisions.md` with 8 Problem → Change → Benefit items and before/after screenshots.
-- [ ] 6.3 Draft the answer to "If you had one more day…".
-- [ ] 6.4 Write a 4-minute video outline. You record it, e.g. with OBS or Loom.
+- [x] 6.1 Draft `docs/ai-build-notes.md` from the log (tools, process, prompts, what went wrong, the fix, what you learned). You rewrite it in your own words.
+- [x] 6.2 Draft `docs/cro-decisions.md` with 8 Problem → Change → Benefit items and before/after screenshots.
+- [x] 6.3 Draft the answer to "If you had one more day…".
+- [x] 6.4 Write a 4-minute video outline. You record it, e.g. with OBS or Loom.
 - [ ] 6.5 Export the docs to PDF, then submit the live link, the video and the docs.
 - [ ] 6.6 Before making the repo public, remove `REQUIREMENTS.md` (it contains NaskSoft's brief) or check with NaskSoft first.
 

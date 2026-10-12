@@ -70,9 +70,9 @@ import { contact, footerLinks, legal, paymentMethods, social, TRUSTPILOT_URL } f
 
 <style>
   /* On phones the extra bottom padding keeps the end of the page clear of the fixed bottom bar
-     (BottomNav.astro, 56px), while staying dark instead of leaving a white strip */
+     (--bottom-bar), while staying dark instead of leaving a white strip */
   .footer {
-    padding-block: var(--space-8) calc(var(--space-6) + 56px + env(safe-area-inset-bottom));
+    padding-block: var(--space-8) calc(var(--space-6) + var(--bottom-bar));
     background: var(--ink);
     color: var(--paper);
     font-size: var(--text-sm);

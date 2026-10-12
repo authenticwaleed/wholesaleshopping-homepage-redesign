@@ -73,11 +73,12 @@ const looks = hero.looks.map(getProduct).filter(Boolean);
   }
 
   /* Mobile: one photo, with the copy over a dark gradient at the bottom. The height leaves room for
-     the header, search and quick links (~225px) so both buttons stay on the first screen. */
+     the header, search and quick links (~225px) above and the fixed bottom bar below, so both
+     buttons stay visible on the first screen. */
   .hero__look {
     position: relative;
     grid-area: 1 / 1;
-    height: clamp(340px, calc(100svh - 225px), 520px);
+    height: clamp(340px, calc(100svh - 225px - var(--bottom-bar)), 520px);
     width: 100%;
     margin: 0;
   }

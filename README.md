@@ -43,3 +43,4 @@ Astro 7 (static HTML), plain JavaScript and plain CSS with design tokens. Playwr
 | `notes/ai-build-log.md` | How AI was used: prompts, what went wrong, how it was fixed |
 | `notes/test-results.md` | Test, link-check and Lighthouse results |
 | `notes/screenshots/` | Before (current site and Fashion Nova) and after screenshots |
+| `docs/` | Submission drafts: AI Build Notes, CRO decisions, "one more day" answer, video outline, comparison images |

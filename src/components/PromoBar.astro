@@ -13,9 +13,13 @@ import { offers } from '../data/content.js';
     {
       offers.map((offer, i) => (
         <li class:list={['promo__item', { 'is-active': i === 0 }]} data-promo-item>
+          {/* One inner span: the link is a flex box (for a 44px tap height), and flex layout would
+              otherwise drop the spaces between the bold part and the rest ("deliveryon orders") */}
           <a href={offer.href}>
-            <strong>{offer.strong}</strong> {offer.text}
-            {offer.detail && <span class="promo__detail">{' '}{offer.detail}</span>}
+            <span>
+              <strong>{offer.strong}</strong> {offer.text}
+              {offer.detail && <span class="promo__detail">{' '}{offer.detail}</span>}
+            </span>
           </a>
         </li>
       ))

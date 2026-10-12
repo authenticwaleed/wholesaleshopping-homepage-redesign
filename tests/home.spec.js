@@ -42,11 +42,22 @@ test.describe('layout', () => {
 
   test('first screen shows the headline and both hero buttons', async ({ page }) => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(/wholesale fashion for uk boutiques/i);
-    const visibleHeight = await page.evaluate(() => visualViewport.height);
+    // Visible area ends at the bottom of the screen, or at the fixed bottom bar on phones
+    // (a first version of this test only checked the screen edge and missed the bar covering the buttons)
+    const visibleBottom = await page.evaluate(() => {
+      const bar = document.querySelector('.bottom-nav');
+      const barTop = bar && getComputedStyle(bar).display !== 'none' ? bar.getBoundingClientRect().top : Infinity;
+      return Math.min(visualViewport.height, barTop);
+    });
     for (const name of ['Shop New In', 'Best Sellers']) {
       const box = await page.locator('.hero__actions').getByRole('link', { name }).boundingBox();
-      expect(box.y + box.height, `"${name}" is on the first screen`).toBeLessThanOrEqual(visibleHeight);
+      expect(box.y + box.height, `"${name}" is visible on the first screen`).toBeLessThanOrEqual(visibleBottom);
     }
+  });
+
+  test('offer text keeps its spaces', async ({ page }) => {
+    // A flex layout once swallowed the spaces: "Free UK mainland deliveryon orders over £300"
+    await expect(page.locator('.promo__item').first()).toContainText('Free UK mainland delivery on orders over £300');
   });
 
   test('offer bar shows the real offers', async ({ page }) => {
