@@ -1,0 +1,23 @@
+# Netlify settings, read automatically when the site is deployed from this Git repo.
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Astro 7 needs Node 22.12 or later (see "engines" in package.json)
+  NODE_VERSION = "22"
+
+# Files in /_astro/ have a content hash in their name, so browsers can keep them for good
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Concept prototype: keep every file out of search results so it never competes with the real site
+# (the page also carries <meta name="robots" content="noindex, nofollow">)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
