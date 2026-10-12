@@ -1,0 +1,258 @@
+---
+// Hero (PLAN.md §6.5): live text says who the site is for, with two clear routes into stock.
+// No carousel: one message, real product photography, and a tag linking to the product shown.
+import Icon from './Icon.astro';
+import { getProduct } from '../lib/catalogue.js';
+import { sized, srcset } from '../lib/images.js';
+import { priceSummary } from '../lib/pricing.js';
+import { hero } from '../data/content.js';
+
+const looks = hero.looks.map(getProduct).filter(Boolean);
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__copy">
+    <p class="eyebrow hero__eyebrow">{hero.eyebrow}</p>
+    <h1 id="hero-title" class="display hero__title">{hero.title}</h1>
+    <ul class="hero__proof" role="list">
+      {
+        hero.proof.map((item) => (
+          <li>
+            <Icon name={item.icon} size={18} />
+            <span>{item.text}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="hero__actions">
+      <a class="btn btn--light" href={hero.primary.href}>{hero.primary.label}</a>
+      <a class="btn btn--ghost-light" href={hero.secondary.href}>{hero.secondary.label}</a>
+    </div>
+  </div>
+
+  {
+    looks.map((p, i) => {
+      const price = priceSummary(p);
+      return (
+        <figure class:list={['hero__look', `hero__look--${i + 1}`]}>
+          <img
+            src={sized(p.images[0].src, 900)}
+            srcset={srcset(p.images[0].src, [480, 640, 900, 1200])}
+            sizes="(min-width: 900px) 30vw, 100vw"
+            alt={p.title}
+            width="900"
+            height="1350"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : undefined}
+            decoding={i === 0 ? 'sync' : 'async'}
+          />
+          <figcaption>
+            <a class="hero__tag" href={p.url}>
+              <span class="hero__tag-name">{p.title}</span>
+              {price && (
+                <span class="hero__tag-price">
+                  {price.from ? 'From ' : ''}
+                  {price.amount} {price.unit}
+                </span>
+              )}
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </figcaption>
+        </figure>
+      );
+    })
+  }
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    background: var(--ink);
+    color: var(--paper);
+    isolation: isolate;
+  }
+
+  /* Mobile: one photo, with the copy over a dark gradient at the bottom. The height leaves room for
+     the header, search and quick links (~215px) so both buttons stay on the first screen. */
+  .hero__look {
+    position: relative;
+    grid-area: 1 / 1;
+    height: clamp(340px, calc(100svh - 215px), 520px);
+    width: 100%;
+    margin: 0;
+  }
+
+  .hero__look--2,
+  .hero__look--3 {
+    display: none;
+  }
+
+  .hero__look img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 18%;
+  }
+
+  .hero__look::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.55) 42%, rgb(0 0 0 / 0) 70%);
+    pointer-events: none;
+  }
+
+  .hero__copy {
+    grid-area: 1 / 1;
+    align-self: end;
+    z-index: 1;
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--gutter);
+  }
+
+  /* Hidden on phones to save height: the headline already says it */
+  .hero__eyebrow {
+    display: none;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  @media (min-width: 600px) {
+    .hero__eyebrow {
+      display: block;
+    }
+  }
+
+  .hero__title {
+    font-size: var(--text-hero);
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+
+  /* On phones the trust strip right below carries these facts, so the hero stays short */
+  .hero__proof {
+    display: none;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.92);
+  }
+
+  @media (min-width: 600px) {
+    .hero__proof {
+      display: grid;
+    }
+  }
+
+  .hero__proof li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .hero__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .hero__actions .btn {
+    padding-inline: var(--space-3);
+  }
+
+  /* "Shop this look" tags only appear on desktop; on phones they would cover the model's face */
+  figcaption {
+    display: none;
+  }
+
+  .hero__tag {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2px var(--space-3);
+    width: min(300px, 100%);
+    padding: var(--space-3) var(--space-4);
+    background: rgb(255 255 255 / 0.95);
+    color: var(--ink);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+    text-decoration: none;
+    box-shadow: var(--shadow-s);
+  }
+
+  .hero__tag-name {
+    font-weight: 500;
+  }
+
+  .hero__tag-price {
+    grid-row: 2;
+    font-weight: 700;
+  }
+
+  .hero__tag :global(svg) {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .hero__tag:hover :global(svg) {
+    transform: translateX(3px);
+  }
+
+  /* Desktop: copy panel on the left, two looks on the right. min-height (not height) so long copy never spills out. */
+  @media (min-width: 900px) {
+    .hero {
+      grid-template-columns: minmax(420px, 1.15fr) 1fr 1fr;
+      min-height: clamp(520px, 66vh, 640px);
+    }
+
+    .hero__copy {
+      grid-area: auto;
+      align-self: center;
+      gap: var(--space-4);
+      padding: var(--space-8) clamp(var(--space-6), 4vw, var(--space-9));
+    }
+
+    .hero__title {
+      font-size: clamp(2.75rem, 1.4rem + 2.4vw, 4.25rem);
+      max-width: 14ch;
+    }
+
+    .hero__look {
+      grid-area: auto;
+      height: auto;
+    }
+
+    .hero__look img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero__look--2 {
+      display: block;
+    }
+
+    .hero__look::after {
+      background: linear-gradient(to top, rgb(0 0 0 / 0.4), rgb(0 0 0 / 0) 35%);
+    }
+
+    figcaption {
+      display: block;
+      position: absolute;
+      left: var(--space-4);
+      right: var(--space-4);
+      bottom: var(--space-4);
+      z-index: 1;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .hero__actions .btn {
+      padding-inline: var(--space-6);
+    }
+  }
+</style>

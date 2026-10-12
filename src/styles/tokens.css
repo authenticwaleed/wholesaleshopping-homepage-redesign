@@ -1,0 +1,76 @@
+/* Design tokens (PLAN.md §5). Colours, sizes and timings used across the page come from here. */
+:root {
+  /* Colour */
+  --ink: #111111; /* main text, primary buttons */
+  --ink-soft: #3a3a3a; /* secondary text */
+  --muted: #666666; /* captions and helper text (5.7:1 on white) */
+  --line: #e4e4e4; /* borders and dividers */
+  --surface: #f4f3f1; /* light section background, image placeholders */
+  --paper: #ffffff;
+  --accent: #b3122e; /* badges, sale prices, highlights */
+  --accent-ink: #ffffff;
+  --success: #17703a; /* free delivery unlocked */
+  --scrim: rgb(0 0 0 / 0.5);
+
+  /* Type */
+  --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Archivo Variable', 'Arial Narrow', system-ui, sans-serif;
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); /* 20–24px */
+  --text-2xl: clamp(1.625rem, 1.2rem + 1.6vw, 2.5rem); /* 26–40px section titles */
+  --text-hero: clamp(2.375rem, 1.3rem + 4.4vw, 5rem); /* 38–80px */
+  --leading-tight: 1;
+  --leading-snug: 1.3;
+  --leading-body: 1.55;
+  --tracking-caps: 0.06em;
+
+  /* Space (4px steps) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+  --space-9: 4rem;
+  --space-10: 6rem;
+  --section-gap: clamp(3rem, 2rem + 4vw, 5.5rem);
+  --gutter: 1rem;
+  --container: 90rem; /* 1440px */
+
+  /* Shape and depth */
+  --radius-s: 2px;
+  --radius-m: 8px;
+  --radius-pill: 999px;
+  --shadow-s: 0 1px 2px rgb(0 0 0 / 0.06), 0 2px 6px rgb(0 0 0 / 0.08);
+  --shadow-l: 0 16px 48px rgb(0 0 0 / 0.2);
+
+  /* Sizing */
+  --tap: 44px; /* minimum tap target */
+
+  /* Layers */
+  --z-header: 50;
+  --z-bottom-nav: 60;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}

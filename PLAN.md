@@ -263,10 +263,10 @@ wholesaleshopping-homepage-redesign/
 ## 8. Build steps
 
 ### Phase 0: Setup and evidence (13 Oct, morning)
-- [ ] 0.1 Scaffold the Astro project. Set up git, `.gitignore` and the npm scripts (`dev`, `build`, `preview`, `fetch-data`, `test`).
-- [ ] 0.2 Start `notes/ai-build-log.md`. Backfill it with the brief, the research and this plan.
-- [ ] 0.3 Take "before" screenshots of the current site and Fashion Nova at 390 px and 1440 px with Playwright, into `notes/screenshots/before/`.
-- [ ] 0.4 Write and run `fetch-products.mjs`, then spot-check its prices against the live site.
+- [x] 0.1 Scaffold the Astro project. Set up git, `.gitignore` and the npm scripts (`dev`, `build`, `preview`, `fetch-data`, `test`).
+- [x] 0.2 Start `notes/ai-build-log.md`. Backfill it with the brief, the research and this plan.
+- [ ] 0.3 (Fashion Nova done; current site waits for the rate limit to clear) Take "before" screenshots of the current site and Fashion Nova at 390 px and 1440 px with Playwright, into `notes/screenshots/before/`.
+- [x] 0.4 Write and run `fetch-products.mjs`, then spot-check its prices against the live site.
 - [ ] 0.5 Gather the real facts into `src/data/content.js`:
   - the Trustpilot score, review count and 3 reviews
   - delivery times, payment methods and VAT wording
@@ -276,10 +276,10 @@ wholesaleshopping-homepage-redesign/
 - **Done when:** `npm run dev` serves the base page, the data file has 60–80 valid products, and the facts list is complete.
 
 ### Phase 1: Design direction (13 Oct, morning)
-- [ ] 1.1 Write `tokens.css` and `base.css` (type, buttons, chips and focus styles).
-- [ ] 1.2 Build the Header, Hero and ProductCard as a sample of the look, on mobile and desktop.
-- [ ] 1.3 Screenshot both sizes.
-- [ ] **Checkpoint 1: you approve the look, the tone of the copy and the order of the sections.**
+- [x] 1.1 Write `tokens.css` and `base.css` (type, buttons, chips and focus styles).
+- [x] 1.2 Build the Header, Hero and ProductCard as a sample of the look, on mobile and desktop.
+- [x] 1.3 Screenshot both sizes.
+- [x] **Checkpoint 1: you approve the look, the tone of the copy and the order of the sections.**
 
 ### Phase 2: The core shopping journey (13 Oct, afternoon)
 - [ ] 2.1 Promo bar

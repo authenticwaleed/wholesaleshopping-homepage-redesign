@@ -1,0 +1,369 @@
+---
+// Header (PLAN.md §6.2–6.3). Desktop: logo, wide search, icons, then 7 menu items with mega menus.
+// Phones: a compact sticky bar; the search field and one-tap quick links sit below it and scroll away.
+import Icon from './Icon.astro';
+import { STORE, mainNav, quickLinks } from '../data/content.js';
+import { getProduct } from '../lib/catalogue.js';
+import { sized } from '../lib/images.js';
+import { priceSummary } from '../lib/pricing.js';
+
+const searchUrl = `${STORE}/search`;
+const nav = mainNav.map((item) => {
+  const feature = item.feature && getProduct(item.feature);
+  return { ...item, feature: feature && { product: feature, price: priceSummary(feature) } };
+});
+---
+
+<header class="header" data-header>
+  <div class="header__bar container">
+    <button class="icon-btn header__menu-btn" type="button" aria-label="Open menu" data-open-menu>
+      <Icon name="menu" />
+    </button>
+
+    <a class="logo" href="/">
+      <img src="/logo.svg" alt="Wholesale Shopping" width="180" height="50" />
+    </a>
+
+    <form class="header__search" action={searchUrl} method="get" role="search">
+      <label class="visually-hidden" for="header-search">Search wholesale styles</label>
+      <Icon name="search" size={20} />
+      <input
+        id="header-search"
+        type="search"
+        name="q"
+        placeholder="Search dresses, knitwear, boots…"
+        autocomplete="off"
+        data-search-input
+      />
+    </form>
+
+    <div class="header__icons">
+      <button class="icon-btn header__search-btn" type="button" aria-label="Search" data-open-search>
+        <Icon name="search" />
+      </button>
+      <a class="icon-btn header__desktop-only" href={`${STORE}/account`} aria-label="Account">
+        <Icon name="user" />
+      </a>
+      <button class="icon-btn header__desktop-only" type="button" aria-label="Wishlist" data-open-wishlist>
+        <Icon name="heart" />
+        <span class="count-badge" data-wishlist-count data-count="0" aria-hidden="true">0</span>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Bag" data-open-bag>
+        <Icon name="bag" />
+        <span class="count-badge" data-bag-count data-count="0" aria-hidden="true">0</span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main">
+    <ul class="nav__list container" role="list">
+      {
+        nav.map((item) => (
+          <li class:list={['nav__item', { 'has-mega': item.columns }]}>
+            <a class:list={['nav__link', { 'nav__link--sale': item.highlight }]} href={item.href}>
+              {item.label}
+              {item.columns && <Icon name="chevron-down" size={14} />}
+            </a>
+            {item.columns && (
+              <div class="mega">
+                <div class="mega__inner container">
+                  {item.columns.map((col) => (
+                    <div class="mega__col">
+                      <p class="mega__title">{col.title}</p>
+                      <ul role="list">
+                        {col.links.map((l) => (
+                          <li>
+                            <a href={l.href}>{l.label}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  {item.feature && (
+                    <a class="mega__feature" href={item.feature.product.url}>
+                      <img
+                        src={sized(item.feature.product.images[0].src, 360)}
+                        alt=""
+                        width="360"
+                        height="540"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <span class="mega__feature-name">{item.feature.product.title}</span>
+                      {item.feature.price && (
+                        <span class="mega__feature-price">
+                          {item.feature.price.from ? 'From ' : ''}
+                          {item.feature.price.amount} {item.feature.price.unit}
+                        </span>
+                      )}
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<div class="mobile-shop">
+  <form class="mobile-search container" action={searchUrl} method="get" role="search">
+    <label class="visually-hidden" for="mobile-search">Search wholesale styles</label>
+    <Icon name="search" size={20} />
+    <input id="mobile-search" type="search" name="q" placeholder="Search dresses, knitwear, boots…" autocomplete="off" data-search-input />
+  </form>
+  <nav class="quick-links" aria-label="Shop quickly">
+    <ul class="rail quick-links__rail" role="list">
+      {
+        quickLinks.map((l) => (
+          <li>
+            <a class="chip" href={l.href}>
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__bar {
+    display: grid;
+    grid-template-columns: var(--tap) 1fr auto;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 56px;
+    padding-inline: calc(var(--gutter) - 10px);
+  }
+
+  /* The store's real logo (public/logo.svg, 893×247) */
+  .logo {
+    justify-self: center;
+    display: block;
+  }
+
+  .logo img {
+    width: 126px;
+    height: auto;
+  }
+
+  .header__search {
+    display: none;
+  }
+
+  .header__icons {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__desktop-only,
+  .nav {
+    display: none;
+  }
+
+  /* Phones: search field and quick links scroll away under the sticky bar */
+  .mobile-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    position: relative;
+  }
+
+  .mobile-search :global(svg) {
+    position: absolute;
+    left: calc(var(--gutter) + 14px);
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  .mobile-search input,
+  .header__search input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 var(--space-4) 0 44px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    font-size: var(--text-base); /* 16px stops iOS zooming into the field */
+  }
+
+  .mobile-search input:focus,
+  .header__search input:focus {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+    background: var(--paper);
+  }
+
+  .quick-links {
+    padding-inline: var(--gutter);
+    padding-block: var(--space-2) var(--space-3);
+    overflow: hidden;
+  }
+
+  .quick-links__rail {
+    gap: var(--space-2);
+  }
+
+  .quick-links .chip {
+    min-height: 40px;
+  }
+
+  /* Desktop */
+  @media (min-width: 900px) {
+    .mobile-shop,
+    .header__menu-btn,
+    .header__search-btn {
+      display: none;
+    }
+
+    .header__bar {
+      grid-template-columns: auto minmax(280px, 560px) auto;
+      justify-content: space-between;
+      gap: var(--space-6);
+      min-height: 72px;
+      padding-inline: var(--gutter);
+    }
+
+    .logo {
+      justify-self: start;
+    }
+
+    .logo img {
+      width: 180px;
+    }
+
+    .header__search {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .header__search :global(svg) {
+      position: absolute;
+      left: 16px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .header__desktop-only {
+      display: inline-grid;
+    }
+
+    .nav {
+      display: block;
+      position: relative;
+      border-top: 1px solid var(--line);
+    }
+
+    .nav__list {
+      display: flex;
+      justify-content: center;
+      gap: clamp(var(--space-2), 1.5vw, var(--space-6));
+    }
+
+    .nav__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-height: 48px;
+      padding-inline: var(--space-2);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav__item:hover > .nav__link,
+    .nav__link:focus-visible {
+      border-bottom-color: var(--ink);
+    }
+
+    .nav__link--sale {
+      color: var(--accent);
+    }
+
+    /* Mega menu: opens on hover (after a short pause, so it doesn't flicker) or keyboard focus */
+    .mega {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 24px 32px -24px rgb(0 0 0 / 0.25);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity var(--dur-fast),
+        visibility 0s linear var(--dur-fast);
+    }
+
+    .nav__item:hover > .mega,
+    .nav__item:focus-within > .mega {
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 120ms;
+    }
+
+    .mega__inner {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) 200px;
+      gap: var(--space-6);
+      padding-block: var(--space-6) var(--space-7);
+    }
+
+    .mega__title {
+      margin-bottom: var(--space-3);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mega__col a {
+      display: inline-block;
+      padding-block: 5px;
+      font-size: var(--text-sm);
+      text-decoration: none;
+    }
+
+    .mega__col a:hover {
+      text-decoration: underline;
+    }
+
+    .mega__feature {
+      grid-column: 5;
+      display: grid;
+      gap: var(--space-1);
+      font-size: var(--text-xs);
+      text-decoration: none;
+    }
+
+    .mega__feature img {
+      aspect-ratio: 2 / 3;
+      width: 100%;
+      object-fit: cover;
+      margin-bottom: var(--space-2);
+      background: var(--surface);
+    }
+
+    .mega__feature-price {
+      font-weight: 700;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PromoBar from '../components/PromoBar.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { productTabs } from '../lib/catalogue.js';
+
+const newIn = productTabs[0];
+---
+
+<Base
+  title="Wholesale Clothing UK | Wholesale Shopping"
+  description="Wholesale fashion for UK boutiques, online sellers and market traders. Shop new-in styles in packs, with free UK mainland delivery over £300."
+>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <PromoBar />
+  <Header />
+  <main id="main">
+    <Hero />
+    <section class="section container">
+      <div class="section-head">
+        <h2 class="section-title">New In</h2>
+        <a class="link-more" href={newIn.url}>View all</a>
+      </div>
+      <div class="rail product-rail">
+        {newIn.items.slice(0, 12).map((p) => <ProductCard product={p} />)}
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .product-rail {
+    grid-auto-columns: 44%;
+  }
+
+  @media (min-width: 600px) {
+    .product-rail {
+      grid-auto-columns: 30%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .product-rail {
+      grid-auto-columns: calc((100% - 3 * var(--space-3)) / 4);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .product-rail {
+      grid-auto-columns: calc((100% - 4 * var(--space-4)) / 5);
+      gap: var(--space-4);
+    }
+  }
+</style>

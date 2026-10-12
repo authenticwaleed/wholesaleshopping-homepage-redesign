@@ -1,0 +1,268 @@
+---
+// Wholesale product card (PLAN.md §6.8): per-piece price first, then the pack it comes in.
+import Icon from './Icon.astro';
+import { sized, srcset } from '../lib/images.js';
+import { priceSummary } from '../lib/pricing.js';
+
+const { product: p, eager = false } = Astro.props;
+const price = priceSummary(p);
+const [photo, altPhoto] = p.images;
+const badges = [p.isNew && 'New', p.origin === 'Italy' && 'Made in Italy', p.plus && 'Plus Size']
+  .filter(Boolean)
+  .slice(0, 2);
+const sizes = '(min-width: 1200px) 220px, (min-width: 900px) 22vw, (min-width: 600px) 30vw, 42vw';
+---
+
+<article class="card" data-handle={p.handle}>
+  <div class="card__media">
+    <a href={p.url} class="card__photo" tabindex="-1" aria-hidden="true">
+      <img
+        src={sized(photo.src, 480)}
+        srcset={srcset(photo.src)}
+        sizes={sizes}
+        alt={p.title}
+        width="480"
+        height="720"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+      {
+        altPhoto && (
+          <img
+            class="card__alt-photo"
+            src={sized(altPhoto.src, 480)}
+            srcset={srcset(altPhoto.src)}
+            sizes={sizes}
+            alt=""
+            width="480"
+            height="720"
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+    </a>
+    {
+      badges.length > 0 && (
+        <ul class="card__badges" role="list">
+          {badges.map((badge) => (
+            <li class:list={['badge', { 'badge--new': badge === 'New' }]}>{badge}</li>
+          ))}
+        </ul>
+      )
+    }
+    <button class="card__wish" type="button" data-wishlist={p.handle} aria-pressed="false" aria-label={`Save ${p.title}`}>
+      <Icon name="heart" size={18} />
+    </button>
+    <button class="card__quick" type="button" data-quick-add={p.handle} aria-label={`Quick add: ${p.title}`}>
+      <Icon name="plus" size={20} />
+      <span class="card__quick-text" aria-hidden="true">Quick add</span>
+    </button>
+  </div>
+
+  <h3 class="card__title"><a href={p.url}>{p.title}</a></h3>
+  {
+    price && (
+      <p class="card__price">
+        {price.from && <span class="card__from">From </span>}
+        <strong>{price.amount}</strong>
+        {price.unit && <span class="card__unit"> {price.unit}</span>}
+      </p>
+    )
+  }
+  {price?.detail && <p class="card__meta">{price.detail}</p>}
+  {p.colours.length > 1 && <p class="card__meta">{p.colours.length} colours</p>}
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .card__media {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .card__photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card__alt-photo {
+    opacity: 0;
+    transition: opacity var(--dur-base) ease;
+  }
+
+  @media (hover: hover) {
+    .card__media:hover .card__alt-photo {
+      opacity: 1;
+    }
+  }
+
+  .card__badges {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    display: grid;
+    justify-items: start;
+    gap: 4px;
+    pointer-events: none;
+  }
+
+  .badge {
+    padding: 3px 6px 2px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .badge--new {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .card__wish,
+  .card__quick {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ink);
+  }
+
+  /* White disc inside a 44px tap area, so the icon shows on dark photos */
+  .card__wish::before,
+  .card__quick::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: var(--radius-pill);
+    background: var(--paper);
+    box-shadow: var(--shadow-s);
+  }
+
+  .card__wish :global(svg),
+  .card__quick :global(svg) {
+    position: relative;
+  }
+
+  .card__wish {
+    top: 0;
+    right: 0;
+  }
+
+  .card__wish[aria-pressed='true'] :global(svg) {
+    fill: currentColor;
+  }
+
+  .card__quick {
+    right: 0;
+    bottom: 0;
+  }
+
+  .card__quick-text {
+    display: none;
+  }
+
+  /* Desktop: a full-width "Quick add" bar slides up on hover or keyboard focus */
+  @media (hover: hover) and (min-width: 900px) {
+    .card__quick {
+      left: var(--space-2);
+      right: var(--space-2);
+      bottom: var(--space-2);
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+      width: auto;
+      background: var(--paper);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(6px);
+      transition:
+        opacity var(--dur-fast),
+        transform var(--dur-fast) var(--ease-out),
+        background-color var(--dur-fast),
+        color var(--dur-fast);
+    }
+
+    .card__quick::before {
+      display: none;
+    }
+
+    .card__quick-text {
+      display: inline;
+    }
+
+    .card__media:hover .card__quick,
+    .card__quick:focus-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .card__quick:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+  }
+
+  .card__title {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card__title a {
+    text-decoration: none;
+  }
+
+  .card__title a:hover {
+    text-decoration: underline;
+  }
+
+  .card__price {
+    margin-top: var(--space-1);
+    font-size: var(--text-base);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card__from,
+  .card__unit {
+    font-size: var(--text-xs);
+    color: var(--muted);
+  }
+
+  .card__price strong {
+    font-weight: 700;
+  }
+
+  .card__meta {
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+</style>

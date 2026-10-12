@@ -1,0 +1,154 @@
+---
+// Promo bar (PLAN.md §6.1): three real offers. Desktop shows all three side by side;
+// phones rotate them (pausable, and static when the visitor prefers reduced motion).
+import Icon from './Icon.astro';
+import { offers } from '../data/content.js';
+---
+
+<section class="promo" aria-label="Offers" data-promo>
+  <button class="promo__nav promo__nav--prev" type="button" aria-label="Previous offer" data-promo-prev>
+    <Icon name="chevron-left" size={16} />
+  </button>
+  <ul class="promo__list" role="list">
+    {
+      offers.map((offer, i) => (
+        <li class:list={['promo__item', { 'is-active': i === 0 }]} data-promo-item>
+          <a href={offer.href}>
+            <strong>{offer.strong}</strong> {offer.text}
+            {offer.detail && <span class="promo__detail">{' '}{offer.detail}</span>}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <button class="promo__nav promo__nav--next" type="button" aria-label="Next offer" data-promo-next>
+    <Icon name="chevron-right" size={16} />
+  </button>
+</section>
+
+<style>
+  .promo {
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    min-height: 40px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: var(--text-xs);
+  }
+
+  .promo__nav {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    opacity: 0.8;
+  }
+
+  .promo__list {
+    display: grid;
+    text-align: center;
+  }
+
+  /* Phones: offers share one slot and fade between each other */
+  .promo__item {
+    grid-area: 1 / 1;
+    align-self: center;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--dur-slow),
+      visibility var(--dur-slow);
+  }
+
+  .promo__item.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .promo__item a {
+    display: block;
+    padding-block: var(--space-2);
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .promo__item a:hover {
+    text-decoration: underline;
+  }
+
+  .promo__item strong {
+    font-weight: 700;
+  }
+
+  .promo__detail {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .promo__detail {
+      display: inline;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .promo {
+      display: block;
+      min-height: 0;
+    }
+
+    .promo__nav {
+      display: none;
+    }
+
+    .promo__list {
+      display: flex;
+      justify-content: center;
+    }
+
+    .promo__item {
+      opacity: 1;
+      visibility: visible;
+      padding-inline: var(--space-6);
+    }
+
+    .promo__item + .promo__item {
+      border-left: 1px solid rgb(255 255 255 / 0.3);
+    }
+  }
+</style>
+
+<script>
+  const bar = document.querySelector('[data-promo]');
+  if (bar) {
+    const items = [...bar.querySelectorAll('[data-promo-item]')];
+    const rotates = matchMedia('(max-width: 899px)');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let index = 0;
+    let timer;
+
+    const show = (i) => {
+      index = (i + items.length) % items.length;
+      items.forEach((item, n) => item.classList.toggle('is-active', n === index));
+    };
+    const stop = () => clearInterval(timer);
+    const start = () => {
+      stop();
+      if (rotates.matches && !reducedMotion.matches) timer = setInterval(() => show(index + 1), 5000);
+    };
+
+    bar.querySelector('[data-promo-prev]').addEventListener('click', () => (show(index - 1), start()));
+    bar.querySelector('[data-promo-next]').addEventListener('click', () => (show(index + 1), start()));
+    // Pause while the visitor is reading or using it
+    bar.addEventListener('pointerenter', stop);
+    bar.addEventListener('pointerleave', start);
+    bar.addEventListener('focusin', stop);
+    bar.addEventListener('focusout', start);
+    rotates.addEventListener('change', start);
+    start();
+  }
+</script>
