@@ -20,6 +20,7 @@ const DOCS = [
   { file: 'cro-decisions.md', submit: true },
   { file: 'one-more-day.md', submit: true },
   { file: 'video-outline.md', submit: false }, // for you, while recording
+  { file: 'walkthrough.md', submit: false }, // screenshots of each section, mapped to the brief
 ];
 
 const SUBTITLE = 'WholesaleShopping.co.uk homepage redesign · NaskSoft AI Web &amp; CRO assessment · October 2026';
@@ -91,6 +92,14 @@ const page = (articles) => `<!doctype html>
   tr { break-inside: avoid; }
   img { display: block; max-width: 100%; max-height: 105mm; margin: 3mm auto 5mm; border: 0.3mm solid #e4e4e4; break-inside: avoid; }
   blockquote { margin: 0 0 3mm; padding: 2mm 4mm; border-left: 1mm solid #111; background: #f4f3f1; }
+  /* Walkthrough: one section per block, desktop and phone screenshots side by side */
+  .step { break-inside: avoid; padding-top: 2mm; }
+  .step:first-of-type { break-inside: auto; } /* two large images: let it flow on from the intro */
+  .step + .step { border-top: 0.3mm solid #e4e4e4; margin-top: 4mm; }
+  .pair { display: grid; grid-template-columns: 2.5fr 1fr; gap: 4mm; align-items: start; margin: 2mm 0 4mm; }
+  .pair figure { margin: 0; }
+  .pair img { width: 100%; max-height: 92mm; object-fit: contain; object-position: top; margin: 0; }
+  figcaption { margin-top: 1mm; font-size: 7.5pt; color: #666; text-align: center; }
 </style>
 </head>
 <body>

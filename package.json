@@ -14,7 +14,8 @@
     "astro": "astro",
     "make-font": "node scripts/make-display-font.mjs",
     "check-links": "node scripts/check-links.mjs",
-    "make-pdfs": "node scripts/make-pdfs.mjs"
+    "make-pdfs": "node scripts/make-pdfs.mjs",
+    "walkthrough-shots": "node scripts/walkthrough-screenshots.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

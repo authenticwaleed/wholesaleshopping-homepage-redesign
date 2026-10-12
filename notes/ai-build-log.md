@@ -273,3 +273,14 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
 - **Learned:**
   - Test the deployed site. Hosting adds its own problems (access protection, an injected badge), and real network timing shows problems localhost hides.
   - One Lighthouse run isn't a result: run it more than once.
+
+## 17. Walkthrough PDF: each section mapped to the brief (13 Oct)
+- **Prompt:** *"make a pdf walkthrough including screenshots which section belongs to which part according to the client requirements"*
+- **AI did:**
+  - Wrote `scripts/walkthrough-screenshots.mjs`. It captures 29 screenshots from the live site: every section at desktop and phone size, plus the mega menu, phone menu, Quick Add, bag and search states.
+  - Wrote `docs/walkthrough.md`: 19 sections, each with desktop and phone side by side, what it does, the brief's exact words it meets (with the part of the brief they come from), and the Fashion Nova idea it adapts. It ends with a table from every requirement to its sections.
+  - The PDF is `docs/pdf/walkthrough.pdf` (17 pages).
+- **What went wrong:**
+  - **A name clash:** the script first crashed because I named the site address `URL`, hiding JavaScript's built-in `URL` class.
+  - **Bottom bar over the screenshots:** on phone section screenshots, the fixed bottom bar sat on top of the content. Correct on a real phone, but it hid content in a document. While capturing single sections the script now hides the bar and stops the header sticking. First-screen and menu shots keep them.
+  - **A half-empty first page:** section 1's two large images couldn't fit under the intro, so section 1 now flows across the page break.
