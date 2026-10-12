@@ -49,6 +49,25 @@ Evidence for REQUIREMENTS.md §6 (Testing) and the "Execution & Testing" criteri
 
 **Known trade-off:** about 2,600 page elements. All five product tabs are built into the page so switching tabs is instant. Rendering the hidden tabs only when opened would cut this, at the cost of a short delay on first switch.
 
-## 4. Still to do by hand
+## 4. Live site (Netlify): https://wholesaleshopping-homepage-redesign.netlify.app
+
+- **Tests against the live link:** `BASE_URL=https://wholesaleshopping-homepage-redesign.netlify.app npm test`. **55 passed**, 5 skipped by design.
+- **Headers:** `x-robots-tag: noindex, nofollow` on every file. Brotli compression. `cache-control: public,max-age=31536000,immutable` on `/_astro/` files.
+- **Lighthouse on the live site, final runs:**
+
+  | Device | Performance | Accessibility | Best practices | LCP | CLS |
+  |---|---|---|---|---|---|
+  | Phone | 87 | 100 | 100 | 3.5 s | 0 |
+  | Desktop | 99 | 100 | 100 | 0.8 s | 0.018 |
+
+  Performance varied between runs with the server's response time from Pakistan (134–1,008 ms): 82–96 on phones and 84–99 on desktop. Accessibility and best practices were 100 in every run.
+- **Problems found on the live site, and the fixes:**
+  1. **HTTP 401 on every file.** The team had "team login" protection on all deploys. Changed to protect preview deploys only (`sso_login_context: non_production`).
+  2. **The wishlist test failed sometimes at 360 px.** Netlify injected a "Built with Netlify" badge (a fixed iframe at the highest z-index) over the bottom bar's Saved, Bag and Account buttons. Turned it off (`built_with_badge_enabled: false`).
+  3. **Desktop layout shift 0.072:** text reflowed when the web fonts arrived after first paint.
+     - Embedding the 8 KB heading font changed nothing (0.071). The cause was the body font.
+     - A size-matched fallback for Inter (Arial or Liberation Sans with Inter's metrics) brought it to **0.018**.
+
+## 5. Still to do by hand
 - Checkpoint 2: test on a real phone over Wi-Fi.
-- After deploying: re-run the tests against the live link (`BASE_URL=https://… npm test`) and test on a phone.
+- Test the live link on a real phone.

@@ -2,7 +2,7 @@
 
 A mobile-first homepage concept for [WholesaleShopping.co.uk](https://www.wholesaleshopping.co.uk), a UK B2B fashion wholesaler. It takes Fashion Nova's strongest UX patterns and adapts them for trade buyers: prices per piece, pack sizes, Quick Add, a £100 minimum order and £300 free-delivery progress, and trust signals up front. Built for NaskSoft's "AI Web & CRO Builder" assessment.
 
-**Live link:** _added after deploy_
+**Live link:** https://wholesaleshopping-homepage-redesign.netlify.app
 
 - **Real data:** products, prices and photos come from the live store's public Shopify data.
 - **Real links:** every collection, product and checkout link leads to the real store.

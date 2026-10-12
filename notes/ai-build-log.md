@@ -248,3 +248,28 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
   - **Output:** one PDF per document, plus `submission.pdf` combining the AI Build Notes, the CRO decisions and the "one more day" answer (10 pages).
 - **Checked:** page counts (`pdfinfo`), that no draft note remained (`pdftotext`), and page images (`pdftoppm`) for layout.
 - **Decision:** I used Chromium's print-to-PDF rather than building the PDFs by hand with reportlab. The documents are Markdown with tables and screenshots, and a browser lays those out properly.
+
+## 16. Deploying to Netlify, and what only the live site revealed (13 Oct)
+- **Prompts:**
+  - *"add netlify.toml file for deploy"*
+  - *"…unable to switch the project, previous SaaSquatch is still present"* (Netlify's GitHub import screen kept looping back to an older repo)
+  - *"do option 2, deploy from my computer"*
+  - *"done authorized"*
+- **AI did:**
+  - Wrote `netlify.toml` (build, Node 22, caching, `noindex`) and proved it with a fresh clone, `npm ci` and `npm run build`.
+  - Deployed from this computer with the Netlify CLI to https://wholesaleshopping-homepage-redesign.netlify.app.
+- **What went wrong (the AI's mistake):**
+  - **What happened:** I started a second copy of the Netlify CLI (`npx … status`) while the first was still installing. Both wrote into the same download folder, corrupting the install (`TAR_ENTRY_ERROR`), and the login hung before it ever showed an authorization page. The approval you clicked at that point wasn't this login.
+  - **Fix:** stopped the stuck process, deleted the corrupted download, installed the CLI once into its own folder, then used `netlify login --request` (a login ticket made for agents), giving you the link and polling `--check` until you approved.
+- **Live site problems, each caught by testing the live link:**
+  1. **Every file returned 401.** The team had login protection on all deploys. Changed to protect preview deploys only.
+  2. **Badge over the bottom bar:**
+     - **What happened:** 54/55 tests passed. The wishlist test failed intermittently at 360 px, waiting for the bottom bar's "Saved" button. Sampling the page showed an iframe on top of it: Netlify's injected "Built with Netlify" badge (`#nl-badge-frame`, fixed bottom-right, highest z-index). On phones it covered Saved, Bag and Account.
+     - **Fix:** turned it off (`built_with_badge_enabled: false`). Result: 55/55.
+  3. **Desktop layout shift 0.072:** text reflowed when the fonts arrived after first paint; locally there's no network delay, so it never showed.
+     - **First guess was wrong:** embedding the 8 KB heading font changed nothing (0.071).
+     - **Real cause:** the Lighthouse details pointed to the body font (Inter). A size-matched fallback (Arial or Liberation Sans with Inter's metrics) brought it to **0.018**.
+- **Measured honestly:** performance varies with the server's response time from here (134–1,008 ms). It ranged 82–96 on phones and 84–99 on desktop, so the notes give the range, not the best run. Accessibility and best practices were 100 every time.
+- **Learned:**
+  - Test the deployed site. Hosting adds its own problems (access protection, an injected badge), and real network timing shows problems localhost hides.
+  - One Lighthouse run isn't a result: run it more than once.

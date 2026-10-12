@@ -1,13 +1,26 @@
 /* Design tokens (PLAN.md §5). Colours, sizes and timings used across the page come from here. */
 
 /* Headings and prices: Archivo pinned to extra-bold at 75% width, built by scripts/make-display-font.mjs
-   (8 KB instead of the 88 KB variable font) */
+   (8 KB instead of the 88 KB variable font). Small enough to embed in the page (see astro.config.mjs), so the
+   headline never reflows when a downloaded font arrives late (that caused a layout shift on the live site). */
 @font-face {
   font-family: 'Archivo Display';
-  src: url('/fonts/archivo-display.woff2') format('woff2');
+  src: url('../assets/fonts/archivo-display.woff2') format('woff2');
   font-weight: 800;
   font-stretch: 75%;
   font-display: swap;
+}
+
+/* Stand-in for Inter while it downloads: a system font stretched to Inter's proportions, so text
+   doesn't re-wrap (and shift the hero) when Inter swaps in. Values from Inter's and Arial's metrics,
+   the same ones next/font uses; Liberation Sans has Arial's metrics on Linux. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Helvetica Neue'), local('Helvetica');
+  size-adjust: 107.06%;
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -24,7 +37,7 @@
   --scrim: rgb(0 0 0 / 0.5);
 
   /* Type */
-  --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter Variable', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Archivo Display', 'Arial Narrow', system-ui, sans-serif;
   --text-xs: 0.75rem; /* 12px */
   --text-sm: 0.875rem; /* 14px */

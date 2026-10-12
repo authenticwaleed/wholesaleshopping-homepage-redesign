@@ -56,6 +56,11 @@ A few of the prompts that shaped the project (spelling tidied):
    - On desktop, the slowest-loading element was the second hero photo. It was set to load lazily although it's on the first screen.
    - On phones, an 88 KB font file was competing with the hero photo for bandwidth.
 
+5. **Problems that only appeared on the live site.**
+   - The first deploy returned "401 Unauthorized": the Netlify team had login protection switched on for every deploy.
+   - The tests then failed on small Android phones only. Netlify adds a "Built with Netlify" badge in the bottom corner, and on phones it covered the Saved, Bag and Account buttons.
+   - Headings and paragraphs jumped when the web fonts arrived. On my computer there's no network delay, so locally this never showed.
+
 ## How I fixed it
 
 1. **Never invent a price.** Those 26 products show their price with "Regular & Plus sizes" and no per-piece figure, and the gap is listed as a follow-up.
@@ -69,6 +74,12 @@ A few of the prompts that shaped the project (spelling tidied):
    - Photos come pre-cropped from Shopify's image server.
 
    Results: Lighthouse desktop performance went from 81 to 92 and phone from 90 to 91, with accessibility 100, best practices 100 and layout shift 0.
+5. **The live site.**
+   - Login protection now applies to preview deploys only, so the live link is public.
+   - The badge is switched off.
+   - The 8 KB heading font is built into the page.
+   - The fallback system font is size-matched to Inter, so text doesn't move when Inter arrives. The live desktop layout shift fell from 0.072 to 0.018.
+   - All 55 tests pass against the live link.
 
 ## What I learned
 
@@ -77,10 +88,11 @@ A few of the prompts that shaped the project (spelling tidied):
 - **CSS grid items won't shrink below their content** unless the column uses `minmax(0, 1fr)`.
 - **Shopify's image server is very flexible.** It can resize and crop photos through the web address (`&width=…&height=…&crop=top`), and it automatically serves smaller WebP/AVIF files to browsers that support them.
 - **In B2B, the store's real rules shape the design.** The £100 minimum and pack-price filters changed what the page says.
+- **Test the live site, not just your computer.** Hosting added its own problems (login protection and a badge over my buttons), and network delays revealed a layout shift that never showed locally.
 - **Be specific with AI.** "An implementation plan" got a strategy summary; asking for "a step-by-step plan with files, tasks and tests" got what I needed.
 
 **Results:**
 - 55 automated tests pass at four screen sizes.
 - 146 of 148 links work and none are broken; the other 2 block automated checks and were checked by hand.
-- Lighthouse on phones: performance 91, accessibility 100, best practices 100. On desktop: performance 92, accessibility 100, best practices 100.
+- Live at https://wholesaleshopping-homepage-redesign.netlify.app. Lighthouse on the live site: accessibility 100 and best practices 100. Performance is 87–96 on phones and 92–99 on desktop, varying with how fast the server responds from my location.
 - About 9 KB of JavaScript.

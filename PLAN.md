@@ -306,9 +306,9 @@ wholesaleshopping-homepage-redesign/
 - [x] 4.5 Take "after" screenshots into `notes/screenshots/after/`.
 
 ### Phase 5: Deploy (14 Oct, midday)
-- [ ] 5.1 Refresh the product data and make a production build.
-- [ ] 5.2 You deploy to Netlify: build command `npm run build`, publish directory `dist`, Node 22.12 or later.
-- [ ] 5.3 Test the live link on desktop and on your phone, and re-run Playwright against it.
+- [x] 5.1 Refresh the product data and make a production build. (Data copied on 13 Oct, the deploy day, so no refresh was needed.)
+- [x] 5.2 Deploy to Netlify. Done from this computer with the Netlify CLI at your request, after the GitHub import screen got stuck: https://wholesaleshopping-homepage-redesign.netlify.app
+- [x] 5.3 Test the live link and re-run Playwright against it (55 passed). Your phone test is still to do.
 
 ### Phase 6: Write-ups and video (14 Oct, afternoon)
 - [x] 6.1 Draft `docs/ai-build-notes.md` from the log (tools, process, prompts, what went wrong, the fix, what you learned). You rewrite it in your own words.

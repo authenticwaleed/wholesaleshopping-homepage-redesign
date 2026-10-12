@@ -101,7 +101,7 @@ The brief's question was: *what would make a fashion retailer arriving on this h
 
 ### Also improved
 - **Accessibility:** Lighthouse accessibility 100, every control at least 44 px tall on phones, menus that work with a keyboard, and no animation for visitors who switch motion off.
-- **Speed:** Lighthouse performance 91 on phones and 92 on desktop, with no layout shift, and about 9 KB of JavaScript.
+- **Speed:** on the live site, Lighthouse performance is 87–96 on phones and 92–99 on desktop, with almost no layout shift and about 9 KB of JavaScript.
 
 ### How I'd prove it
 I'd A/B test the new homepage against the current one, tracking:

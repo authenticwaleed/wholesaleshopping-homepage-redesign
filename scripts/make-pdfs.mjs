@@ -57,7 +57,7 @@ const fonts = `
   @font-face { font-family: 'Inter'; font-weight: 100 900;
     src: url(data:font/woff2;base64,${await base64(new URL('../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2', import.meta.url))}) format('woff2'); }
   @font-face { font-family: 'Archivo Display'; font-weight: 800; font-stretch: 75%;
-    src: url(data:font/woff2;base64,${await base64(new URL('../public/fonts/archivo-display.woff2', import.meta.url))}) format('woff2'); }`;
+    src: url(data:font/woff2;base64,${await base64(new URL('../src/assets/fonts/archivo-display.woff2', import.meta.url))}) format('woff2'); }`;
 const logo = `data:image/svg+xml;base64,${await base64(new URL('../public/logo.svg', import.meta.url))}`;
 
 const page = (articles) => `<!doctype html>
