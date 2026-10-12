@@ -25,6 +25,7 @@ npm test           # end-to-end tests at 4 screen sizes (builds and serves dist/
 | `npm run check-links` | Checks every link on the built page against the live store (`notes/link-check.md`) |
 | `npm run screenshots -- <url> <name> [dir]` | Phone and desktop screenshots, first screen and full page |
 | `npm run make-font` | Rebuilds the 8 KB display font from Archivo |
+| `npm run make-pdfs` | Turns the drafts in `docs/` into PDFs in `docs/pdf/` (run again after editing them) |
 
 ## Stack
 
@@ -44,3 +45,4 @@ Astro 7 (static HTML), plain JavaScript and plain CSS with design tokens. Playwr
 | `notes/test-results.md` | Test, link-check and Lighthouse results |
 | `notes/screenshots/` | Before (current site and Fashion Nova) and after screenshots |
 | `docs/` | Submission drafts: AI Build Notes, CRO decisions, "one more day" answer, video outline, comparison images |
+| `docs/pdf/` | The same documents as PDFs; `submission.pdf` combines the three to submit |

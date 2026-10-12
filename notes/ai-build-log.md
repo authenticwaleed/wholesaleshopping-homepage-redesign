@@ -241,3 +241,10 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
 - **Learned:**
   - Making something to show people (the comparison image) was the best test of the day. Look at the whole screen the way a buyer would, not just at what the tests measure.
   - A fix in one place (bigger tap targets) can break another (the spaces).
+
+## 15. PDFs of the write-ups (13 Oct)
+- **Prompt:** *"yes make the pdf files"*
+- **AI did:** wrote `scripts/make-pdfs.mjs` (`npm run make-pdfs`). It converts the Markdown drafts to HTML with `marked`, using the site's own fonts and logo, then prints them to A4 PDFs in Playwright's Chromium, with page numbers. The "Draft for you to edit" notes are left out.
+  - **Output:** one PDF per document, plus `submission.pdf` combining the AI Build Notes, the CRO decisions and the "one more day" answer (10 pages).
+- **Checked:** page counts (`pdfinfo`), that no draft note remained (`pdftotext`), and page images (`pdftoppm`) for layout.
+- **Decision:** I used Chromium's print-to-PDF rather than building the PDFs by hand with reportlab. The documents are Markdown with tables and screenshots, and a browser lays those out properly.
