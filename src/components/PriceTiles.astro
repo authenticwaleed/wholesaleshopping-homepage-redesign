@@ -1,0 +1,106 @@
+---
+// Shop by pack price (PLAN.md §6.11). The store's "Under £X" collections filter on the whole pack's
+// price, so the tiles say "Packs under" to avoid clashing with the per-piece prices on product cards.
+import Icon from './Icon.astro';
+import { collectionUrl, priceTiles } from '../data/content.js';
+---
+
+<section class="section container" aria-labelledby="prices-title" data-reveal>
+  <div class="section-head">
+    <div>
+      <h2 class="section-title" id="prices-title">Shop by pack price</h2>
+      <p class="section-note">The price of the whole pack, excluding VAT</p>
+    </div>
+  </div>
+  <ul class="rail prices" role="list">
+    {
+      priceTiles.map((tile) => (
+        <li>
+          <a class="price" href={collectionUrl(tile.handle)}>
+            <span class="price__under">Packs under</span>
+            <span class="price__amount">{tile.amount}</span>
+            <span class="price__cta">
+              Shop <Icon name="arrow-right" size={16} />
+            </span>
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a class="price price--dark" href={collectionUrl('everything-5')}>
+        <span class="price__under">Everything</span>
+        <span class="price__amount">£5</span>
+        <span class="price__cta">
+          Shop <Icon name="arrow-right" size={16} />
+        </span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<style>
+  .prices {
+    grid-auto-columns: 40%;
+  }
+
+  @media (min-width: 600px) {
+    .prices {
+      grid-auto-columns: 26%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .prices {
+      grid-auto-columns: calc((100% - 5 * var(--space-3)) / 6);
+    }
+  }
+
+  .price {
+    display: grid;
+    align-content: space-between;
+    gap: var(--space-4);
+    min-height: 150px;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    text-decoration: none;
+    transition:
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+
+  .price:hover,
+  .price--dark {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .price--dark:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .price__under {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .price__amount {
+    font-family: var(--font-display);
+    font-stretch: 75%;
+    font-size: clamp(2.25rem, 1.8rem + 1.6vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .price__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+</style>

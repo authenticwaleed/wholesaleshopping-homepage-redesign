@@ -342,3 +342,9 @@ html:has(dialog[open]) {
     scroll-behavior: auto !important;
   }
 }
+
+.section-note {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}

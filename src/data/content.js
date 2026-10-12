@@ -273,7 +273,7 @@ export const banners = [
     text: 'Coats, jumpers and cosy layers for the colder months. Use code AW20 for 20% off (min spend £100).',
     cta: 'Shop Autumn Winter',
     href: collectionUrl('autumn-winter'),
-    product: 'plain-two-tone-faux-fur-pockets-jacket',
+    product: 'check-print-front-button-up-pockets-longline-blazer',
   },
   {
     eyebrow: 'Christmas',
@@ -289,7 +289,6 @@ export const howItWorks = [
   {
     title: 'Register your business',
     text: 'Open a wholesale account to place orders, see live stock and get trade offers.',
-    link: { label: 'Register now', href: REGISTER_URL },
   },
   {
     title: 'Choose your packs',
@@ -411,3 +410,35 @@ export const footerLinks = [
     ],
   },
 ];
+
+// The store's own SEO copy, trimmed of its rhetorical questions and folded behind "Read more"
+export const about = {
+  title: 'Reliable wholesale clothing UK, built for retailers',
+  intro: [
+    'Tired of unreliable Wholesale Clothing UK supply partners? Bulk fashion is not just about filling shelves; it’s about selecting the most trendy stock. Wholesale Shopping is a trusted wholesale clothing supplier offering premium inventory and reliable bulk fashion sourcing. If you want to support steady sales and healthy margins, we let you buy with clarity, plan with purpose, and grow without unnecessary risk.',
+    'We simplify bulk buying through transparent pack pricing, weekly stock updates, and next-day UK dispatch on qualifying orders.',
+  ],
+  more: [
+    {
+      heading: 'Growing your fashion business?',
+      text: 'Finding the right UK wholesale clothes supplier isn’t easy. At Wholesale Shopping, we supply wholesale fashion to businesses across the UK and Europe, including wholesale clothing for boutique owners in the UK looking for trend-led collections with strong resale value. If you sell online or run a physical store, we’re built to support businesses that need dependable stock, competitive pricing, and fast delivery.',
+    },
+    {
+      heading: 'Modern retail spaces',
+      text: 'Stock trend-led, fast-moving fashion without overpaying or over-ordering. Keep your shelves fresh while protecting your margins.',
+    },
+    {
+      heading: 'Online store owners',
+      text: 'Access a reliable Manchester clothing wholesale supply with fast dispatch, consistent product quality, and pricing structured to support profitable resale.',
+    },
+  ],
+};
+
+export const legal = {
+  company: 'Europa Fashion (UK) Ltd, trading as Wholesale Shopping',
+  companyNumber: '08395791',
+  vat: 'GB188546653',
+};
+
+// From the footer payment icons, structured data and FAQ page
+export const paymentMethods = ['Visa', 'Mastercard', 'PayPal', 'American Express', 'Maestro', 'Klarna'];

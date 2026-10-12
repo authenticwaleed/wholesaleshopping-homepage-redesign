@@ -1,0 +1,128 @@
+---
+// FAQ and About (PLAN.md §6.16): trade buyers' real questions as accordions, and the store's SEO copy
+// kept on the page for search engines but folded away so it doesn't push products down.
+import { about, faqs } from '../data/content.js';
+---
+
+<section class="section container faq-about" aria-labelledby="faq-title" data-reveal>
+  <div class="faq">
+    <h2 class="section-title" id="faq-title">Questions from retailers</h2>
+    <div class="faq__list">
+      {
+        faqs.map((item) => (
+          <details class="faq__item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="about">
+    <h2 class="about__title">{about.title}</h2>
+    {about.intro.map((text) => <p>{text}</p>)}
+    <details class="about__more">
+      <summary>Read more</summary>
+      {
+        about.more.map((block) => (
+          <>
+            <h3>{block.heading}</h3>
+            <p>{block.text}</p>
+          </>
+        ))
+      }
+    </details>
+  </div>
+</section>
+
+<style>
+  .faq-about {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .faq__list {
+    margin-top: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__item summary,
+  .about__more summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 56px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq__item summary::-webkit-details-marker,
+  .about__more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* A plus that turns into a minus when open */
+  .faq__item summary::after {
+    content: '+';
+    flex: none;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .faq__item[open] summary::after {
+    content: '−';
+  }
+
+  .faq__item p {
+    padding-bottom: var(--space-5);
+    max-width: 65ch;
+    color: var(--ink-soft);
+  }
+
+  .about {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  .about__title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .about__more summary {
+    min-height: var(--tap);
+    justify-content: flex-start;
+    color: var(--ink);
+    text-decoration: underline;
+  }
+
+  .about__more h3 {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .about__more p {
+    margin-top: var(--space-1);
+  }
+
+  @media (min-width: 900px) {
+    .faq-about {
+      grid-template-columns: 3fr 2fr;
+      gap: var(--space-9);
+    }
+  }
+</style>

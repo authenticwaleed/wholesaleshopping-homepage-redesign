@@ -1,0 +1,103 @@
+---
+// How wholesale ordering works (PLAN.md §6.13): answers a first-time trade buyer's questions
+// (account, packs, minimum order, payment, dispatch) before they have to go looking.
+import { REGISTER_URL, collectionUrl, howItWorks } from '../data/content.js';
+---
+
+<section class="how" aria-labelledby="how-title" data-reveal>
+  <div class="container">
+    <p class="eyebrow how__eyebrow">New to Wholesale Shopping?</p>
+    <h2 class="section-title" id="how-title">How wholesale ordering works</h2>
+    <ol class="how__steps" role="list">
+      {
+        howItWorks.map((step, i) => (
+          <li class="how__step">
+            <span class="how__num" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="how__title">{step.title}</h3>
+            <p class="how__text">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="how__actions">
+      <a class="btn btn--light" href={REGISTER_URL}>Register a trade account</a>
+      <a class="btn btn--ghost-light" href={collectionUrl('new-wholesale-clothing')}>Start shopping</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    margin-block: var(--section-gap);
+    padding-block: var(--space-9);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .how__eyebrow {
+    margin-bottom: var(--space-2);
+    color: rgb(255 255 255 / 0.7);
+  }
+
+  .how__steps {
+    display: grid;
+    gap: var(--space-6);
+    margin-block: var(--space-7);
+  }
+
+  .how__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-4);
+    align-items: baseline;
+  }
+
+  .how__num {
+    grid-row: 1 / span 2;
+    min-width: 2ch;
+    font-family: var(--font-display);
+    font-stretch: 75%;
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums; /* same width for every number, so the step titles line up */
+    line-height: 1;
+    color: rgb(255 255 255 / 0.35);
+  }
+
+  .how__title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  .how__text {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .how__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 900px) {
+    .how__steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-7);
+    }
+
+    .how__step {
+      grid-template-columns: 1fr;
+      align-content: start;
+    }
+
+    .how__num {
+      grid-row: auto;
+      margin-bottom: var(--space-3);
+      font-size: 3.5rem;
+    }
+  }
+</style>

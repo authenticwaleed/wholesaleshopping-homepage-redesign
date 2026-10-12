@@ -1,0 +1,114 @@
+---
+// Seasonal promo banners (PLAN.md §6.12): real text over real product photos (not text baked into
+// images), and the whole banner is one tap target.
+import { banners } from '../data/content.js';
+import { getProduct } from '../lib/catalogue.js';
+import { sized, srcset } from '../lib/images.js';
+
+const items = banners.map((b) => ({ ...b, photo: getProduct(b.product)?.images[0] }));
+---
+
+<section class="section container banners" aria-label="Seasonal edits" data-reveal>
+  {
+    items.map((b) => (
+      <a class="banner" href={b.href}>
+        {b.photo && (
+          <img
+            src={sized(b.photo.src, 900)}
+            srcset={srcset(b.photo.src, [480, 640, 900, 1200])}
+            sizes="(min-width: 900px) 50vw, 100vw"
+            alt=""
+            width="900"
+            height="1350"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <span class="banner__copy">
+          <span class="eyebrow">{b.eyebrow}</span>
+          <h2 class="banner__title display">{b.title}</h2>
+          <span class="banner__text">{b.text}</span>
+          <span class="btn btn--light banner__cta">{b.cta}</span>
+        </span>
+      </a>
+    ))
+  }
+</section>
+
+<style>
+  .banners {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .banner {
+    position: relative;
+    display: grid;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  .banner img {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .banner:hover img {
+    transform: scale(1.03);
+  }
+
+  .banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0.1) 60%);
+  }
+
+  .banner__copy {
+    align-self: end;
+    display: grid;
+    justify-items: start;
+    gap: var(--space-2);
+    padding: var(--space-5);
+  }
+
+  .banner__title {
+    font-size: var(--text-2xl);
+  }
+
+  .banner__text {
+    max-width: 38ch;
+    font-size: var(--text-sm);
+    color: rgb(255 255 255 / 0.9);
+  }
+
+  .banner__cta {
+    margin-top: var(--space-2);
+  }
+
+  @media (min-width: 900px) {
+    .banners {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+
+    .banner {
+      aspect-ratio: 5 / 4;
+    }
+
+    .banner__copy {
+      padding: var(--space-7);
+    }
+  }
+</style>

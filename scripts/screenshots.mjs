@@ -25,7 +25,8 @@ const SIZES = {
   },
 };
 
-// Scroll down in steps so lazy-loaded images and sections render before the full-page shot.
+// Scroll down in steps so lazy-loaded images and sections render before the full-page shot,
+// then wait until every image has actually arrived (otherwise slow photos show as empty boxes).
 async function scrollThrough(page) {
   await page.evaluate(async () => {
     for (let y = 0; y < document.documentElement.scrollHeight; y += window.innerHeight * 0.8) {
@@ -34,7 +35,22 @@ async function scrollThrough(page) {
     }
     window.scrollTo(0, 0);
   });
-  await page.waitForTimeout(1000);
+  // Only images that can be seen: lazy images in closed tabs, closed panels or off-screen parts of
+  // swipe rows never load until needed, by design
+  await page
+    .waitForFunction(
+      () =>
+        [...document.images]
+          .filter((img) => {
+            const box = img.getBoundingClientRect();
+            return img.checkVisibility() && box.width > 0 && box.right > 0 && box.left < innerWidth;
+          })
+          .every((img) => img.complete),
+      null,
+      { timeout: 15_000 },
+    )
+    .catch(() => console.warn('  some visible images were still loading after 15s'));
+  await page.waitForTimeout(500);
 }
 
 await mkdir(outDir, { recursive: true });

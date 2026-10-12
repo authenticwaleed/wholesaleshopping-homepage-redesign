@@ -292,10 +292,10 @@ wholesaleshopping-homepage-redesign/
 - **Done when:** on both mobile and desktop, a shopper can go from the hero or a category/tab to Quick Add, then the bag, then the checkout link.
 
 ### Phase 3: Remaining sections and a mobile pass (13 Oct, evening)
-- [ ] 3.1 Shop by price, promo banners and How wholesale works
-- [ ] 3.2 Reviews, newsletter and app, FAQ and SEO text, and the footer
-- [ ] 3.3 Bottom nav, scroll animations and reduced-motion support
-- [ ] 3.4 A dedicated mobile pass at 360, 390 and 768 px: spacing, type, tap targets, sticky elements and safe areas
+- [x] 3.1 Shop by price, promo banners and How wholesale works
+- [x] 3.2 Reviews, newsletter and app, FAQ and SEO text, and the footer
+- [x] 3.3 Bottom nav, scroll animations and reduced-motion support
+- [x] 3.4 A dedicated mobile pass at 360, 390 and 768 px: spacing, type, tap targets, sticky elements and safe areas
 - [ ] **Checkpoint 2: you test on your own phone, using the dev server over Wi-Fi, and list any issues.**
 
 ### Phase 4: Test and fix (14 Oct, morning)

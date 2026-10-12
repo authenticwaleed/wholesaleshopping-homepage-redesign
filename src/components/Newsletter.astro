@@ -1,0 +1,124 @@
+---
+// Newsletter and app (PLAN.md §6.15). The sign-up is front-end only in this prototype, and says so,
+// so no one is subscribed to the real store's list by accident.
+import { app } from '../data/content.js';
+---
+
+<section class="newsletter" aria-labelledby="newsletter-title" data-reveal>
+  <div class="container newsletter__inner">
+    <div class="newsletter__signup">
+      <h2 class="section-title" id="newsletter-title">Be first to new stock</h2>
+      <p class="newsletter__text">Sign up for new-in alerts and discounts.</p>
+      <form class="newsletter__form" data-newsletter novalidate>
+        <label class="visually-hidden" for="newsletter-email">Email address</label>
+        <input
+          id="newsletter-email"
+          type="email"
+          name="email"
+          placeholder="Your email address"
+          autocomplete="email"
+          required
+          aria-describedby="newsletter-message"
+        />
+        <button class="btn" type="submit">Sign up</button>
+      </form>
+      <p class="newsletter__message" id="newsletter-message" role="status" data-newsletter-message></p>
+    </div>
+
+    <div class="newsletter__app">
+      <h3 class="newsletter__app-title">Shop faster with the app</h3>
+      <p class="newsletter__text">Rated 4.8 on the App Store.</p>
+      <div class="newsletter__app-links">
+        <a class="btn btn--outline" href={app.appStore} target="_blank" rel="noopener">App Store</a>
+        <a class="btn btn--outline" href={app.googlePlay} target="_blank" rel="noopener">Google Play</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector('[data-newsletter]');
+  const message = document.querySelector('[data-newsletter-message]');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = form.email;
+    if (!email.checkValidity()) {
+      message.textContent = 'Please enter a valid email address.';
+      email.setAttribute('aria-invalid', 'true');
+      email.focus();
+      return;
+    }
+    email.removeAttribute('aria-invalid');
+    message.textContent = 'Thanks! This is a design prototype, so no email has been sent.';
+    form.reset();
+  });
+</script>
+
+<style>
+  .newsletter {
+    margin-block: var(--section-gap);
+    padding-block: var(--space-8);
+    background: var(--surface);
+  }
+
+  /* minmax(0, …): grid items otherwise refuse to shrink below their content's natural width,
+     and the email field + button made this section (and so the whole page) wider than a phone */
+  .newsletter__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .newsletter__text {
+    margin-top: var(--space-2);
+    color: var(--ink-soft);
+  }
+
+  .newsletter__form {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    max-width: 520px;
+  }
+
+  .newsletter__form input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 var(--space-4);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-s);
+    background: var(--paper);
+    font-size: var(--text-base);
+  }
+
+  .newsletter__form input[aria-invalid='true'] {
+    border-color: var(--accent);
+  }
+
+  .newsletter__message {
+    min-height: 1.5em;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .newsletter__app-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+  }
+
+  .newsletter__app-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .newsletter__inner {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      align-items: center;
+    }
+  }
+</style>

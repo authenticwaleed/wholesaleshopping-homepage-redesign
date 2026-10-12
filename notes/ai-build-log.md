@@ -162,3 +162,30 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
   5. **Repeated price:** "£18.00 per piece · Pack of 1 £18.00" became "£18.00 per piece · Pack of 1".
   6. **Add button below the fold:** on phones the Add to bag button sat below the fold inside the sheet. It's now pinned to the bottom of the sheet (measured: button bottom at 652 px on a 664 px screen).
   7. **My own test was wrong:** "Footwear" matched two tabs (product tabs and menu tabs) while the menu was open. Fixed by scoping the locator to the menu. The page was fine.
+
+## 12. Phase 3: remaining sections and the mobile pass (13 Oct)
+- **Built:**
+  - **Shop by pack price:** tiles labelled "Packs under £X", because the store's collections filter by pack price.
+  - **Seasonal banners:** live text over real product photos; the whole banner is one tap target.
+  - **How wholesale ordering works:** 4 sourced steps (account, packs, £100 minimum and payment, same-day dispatch).
+  - **Reviews:** the real Trustpilot rating and reviews.
+  - **Newsletter:** says honestly that it's a demo, so nobody is subscribed to the real list by accident. Plus links to the real app listings.
+  - **FAQ:** 6 trade questions as accordions.
+  - **About:** the store's SEO copy, folded behind "Read more".
+  - **Footer:** accordions on phones, contact details, payment methods, company and VAT numbers, and a "concept" note.
+  - **Mobile bottom bar:** Shop, Search, Saved, Bag and Account.
+- **Bug 1 – the page was wider than the phone:**
+  - **Problem:** the full-page phone screenshot came out 421 px wide on a 390 px phone. The newsletter's grid column couldn't shrink below the email field plus button (CSS grid items default to `min-width: auto`), so the whole page laid out at 421 px. A real phone would show the page slightly zoomed out with sideways scrolling.
+  - **Fix:** `grid-template-columns: minmax(0, 1fr)` and a full-width input. Verified at 320, 360, 390, 768 and 1440 px: layout width equals screen width.
+- **What went wrong with my own test:**
+  - **Problem:** my "no horizontal scroll" check compared `scrollWidth` with `innerWidth`. On mobile `innerWidth` itself grows to fit too-wide content, so the check always said 0.
+  - **Fix:** the check now compares against `visualViewport.width`, the real screen width.
+  - **Learned:** a test can pass for the wrong reason, so check what it actually measures.
+- **Full-page screenshot artifacts, second time:**
+  - **Problem:** the banners showed black because their lazy-loaded photos hadn't arrived yet.
+  - **Fix:** the screenshot script now waits for every visible image.
+  - **The first two versions of that wait never finished:** images in closed tabs, closed panels and off-screen parts of swipe rows only load when needed, by design. The wait now ignores them.
+- **Small fixes:**
+  - The footer showed "−" markers on desktop, because a more specific `[open]` rule beat the desktop override.
+  - A white strip sat under the dark footer on phones. The space reserved for the bottom bar moved into the footer's own padding.
+  - "How it works" numbers were misaligned. Fixed with equal-width digits; all titles now start at 72 px.
