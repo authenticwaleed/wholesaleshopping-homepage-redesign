@@ -113,3 +113,52 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
   - Replaced the temporary text logo with it (126 px wide on phones, 180 px on desktop, the same sizes as the live site).
 - **Also:** screenshots are now saved as JPEG instead of PNG. The full Fashion Nova page went from 4.9 MB to 1 MB, which keeps the repo small.
 - **Small bug:** Astro removed the space before "· T&Cs apply" in the offer bar ("£100· T&Cs"). Fixed by adding an explicit `{' '}`.
+
+## 10. Real facts change the design (13 Oct)
+- **AI did:** a background helper agent collected sourced facts into `notes/real-facts.md` (15 sections, about 58 requests).
+  - **What went wrong:** the store returned **HTTP 429** for product and collection pages, and Trustpilot blocked plain `curl`. The helper switched to another fetch tool (WebFetch) and recorded which facts came from where.
+- **Facts that changed the page:**
+  - **Trustpilot 4.8 "Excellent", 1,111 reviews.** This replaces the inconsistent "178" and "1,300+" figures used elsewhere on the site.
+  - **Same-day dispatch for orders placed by 2pm Mon–Fri.** A strong B2B fact that the current homepage barely mentions.
+  - **£100 minimum order:** the live cart blocks checkout below it. Our bag now warns early, with a two-step progress bar (£100 minimum, then £300 free delivery), instead of surprising buyers at checkout.
+  - **Prices exclude VAT** (T&Cs). This is now said clearly in the product section, Quick Add and the bag.
+  - **The "Under £X" collections filter by pack price**, not per-piece price, so our tiles say "Packs under £X". Otherwise the per-piece labels on cards would have contradicted them.
+  - **A wholesale account is required to order** (FAQ). "Register a trade account" now appears in the menu and in "How wholesale works".
+  - **Cart permalink works:** `/cart/<variant>:<qty>` returns a 302 to the store's Shop Pay checkout, so our bag can hand off real orders.
+- **Conflicts kept out of the copy:**
+  - Two WhatsApp numbers: we use the one that matches the phone line and the policy pages.
+  - Returns window: 2 working days (policy) vs 14 days (FAQ page). We use the policy.
+  - "New styles every week": true in 9 of the last 10 weeks only, so we don't claim it.
+- **Before screenshots of the current site** showed real issues on phones:
+  - The hero headline is baked into the image and cut off below the fold.
+  - No buttons or products on the first screen.
+  - Two promo messages overlapping in a thin strip.
+  - The Chat bubble covering "Search" in the bottom bar.
+
+## 11. Phase 2: the core shopping journey (13 Oct)
+- **Built:**
+  - trust strip and category tiles (photos picked from a contact sheet of real products)
+  - tabbed "Shop the latest" row
+  - **Quick Add** (bottom sheet on phones, centred window on desktop)
+  - bag drawer (progress bar, quantity steppers, Shopify checkout link)
+  - wishlist drawer, search panel with instant matches, mobile menu with department tabs, keyboard and touch support for the mega menu
+- **Tested with a Playwright journey script:**
+  - Desktop: tabs → Quick Add → add 3 packs → bag opens → +1 → reload keeps the bag → mega menu by keyboard and Esc → search "boots" (7 matches).
+  - Mobile: menu tabs → wishlist heart → Quick Add → bag → search "jumper" (5 matches).
+  - No console errors, and no horizontal scroll.
+- **Bugs the checks caught:**
+  1. **Lists losing their spacing:**
+     - **Problem:** the CSS reset `ul[role='list'] { padding: 0 }` was more specific than the component classes. Bag lines touched the drawer edges, the line total was cut off, and the swipe rows lost their edge-to-edge bleed.
+     - **Fix:** wrap the reset in `:where()` (zero specificity). Measured before and after: `padding-left` went from 0px to the intended value.
+  2. **Hollow trust stars:**
+     - **Problem:** the icon component spread custom attributes after its defaults. In HTML the first duplicate attribute wins, so `fill="currentColor"` was ignored.
+     - **Fix:** merge the attributes in the component's code instead.
+  3. **Blank photos in Quick Add and the bag:**
+     - **Checked first:** it wasn't a broken link; the 640 px photo took about 0.7 s to arrive.
+     - **Fix:** show the card's already-loaded photo immediately as a placeholder, then fade in the sharp one. Bag thumbnails use the small size that's usually already cached.
+  4. **Quick Add didn't match the card:**
+     - **Problem:** the card said "From £17.75 per piece (Pack of 3)", but Quick Add opened on the first colour, where only Pack of 1 at £18.00 was in stock.
+     - **Fix:** Quick Add now opens on the best-value variant that's in stock, the same one the card advertises.
+  5. **Repeated price:** "£18.00 per piece · Pack of 1 £18.00" became "£18.00 per piece · Pack of 1".
+  6. **Add button below the fold:** on phones the Add to bag button sat below the fold inside the sheet. It's now pinned to the bottom of the sheet (measured: button bottom at 652 px on a 664 px screen).
+  7. **My own test was wrong:** "Footwear" matched two tabs (product tabs and menu tabs) while the menu was open. Fixed by scoping the locator to the menu. The page was fine.

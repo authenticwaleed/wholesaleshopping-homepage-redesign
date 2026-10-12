@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/archivo/wdth.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import '../styles/overlays.css';
 
 const { title, description } = Astro.props;
 ---
@@ -21,5 +22,8 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
+    <script>
+      import '../scripts/reveal.js';
+    </script>
   </body>
 </html>

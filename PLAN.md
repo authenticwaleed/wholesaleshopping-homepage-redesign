@@ -265,14 +265,14 @@ wholesaleshopping-homepage-redesign/
 ### Phase 0: Setup and evidence (13 Oct, morning)
 - [x] 0.1 Scaffold the Astro project. Set up git, `.gitignore` and the npm scripts (`dev`, `build`, `preview`, `fetch-data`, `test`).
 - [x] 0.2 Start `notes/ai-build-log.md`. Backfill it with the brief, the research and this plan.
-- [ ] 0.3 (Fashion Nova done; current site waits for the rate limit to clear) Take "before" screenshots of the current site and Fashion Nova at 390 px and 1440 px with Playwright, into `notes/screenshots/before/`.
+- [x] 0.3 Take "before" screenshots of the current site and Fashion Nova at 390 px and 1440 px with Playwright, into `notes/screenshots/before/`.
 - [x] 0.4 Write and run `fetch-products.mjs`, then spot-check its prices against the live site.
-- [ ] 0.5 Gather the real facts into `src/data/content.js`:
+- [x] 0.5 Gather the real facts into `src/data/content.js`:
   - the Trustpilot score, review count and 3 reviews
   - delivery times, payment methods and VAT wording
   - app-store links and the WhatsApp number
   - the logo, the brand colour and the FAQ text
-- [ ] 0.6 Check that the collection links work, and that the Shopify cart link reaches the checkout page. Stop there; place no order.
+- [x] 0.6 Check that the collection links work, and that the Shopify cart link reaches the checkout page. Stop there; place no order.
 - **Done when:** `npm run dev` serves the base page, the data file has 60–80 valid products, and the facts list is complete.
 
 ### Phase 1: Design direction (13 Oct, morning)
@@ -282,13 +282,13 @@ wholesaleshopping-homepage-redesign/
 - [x] **Checkpoint 1: you approve the look, the tone of the copy and the order of the sections.**
 
 ### Phase 2: The core shopping journey (13 Oct, afternoon)
-- [ ] 2.1 Promo bar
-- [ ] 2.2 Desktop header and mega menu; mobile header and menu drawer
-- [ ] 2.3 Search overlay
-- [ ] 2.4 Trust strip and category tiles
-- [ ] 2.5 Product tabs, with cards built from the data
-- [ ] 2.6 Quick Add (modal on desktop, bottom sheet on mobile)
-- [ ] 2.7 Cart store, bag drawer, progress bar and checkout link, plus the header and bottom-nav counts
+- [x] 2.1 Promo bar
+- [x] 2.2 Desktop header and mega menu; mobile header and menu drawer
+- [x] 2.3 Search overlay
+- [x] 2.4 Trust strip and category tiles
+- [x] 2.5 Product tabs, with cards built from the data
+- [x] 2.6 Quick Add (modal on desktop, bottom sheet on mobile)
+- [x] 2.7 Cart store, bag drawer, progress bar and checkout link, plus the header and bottom-nav counts
 - **Done when:** on both mobile and desktop, a shopper can go from the hero or a category/tab to Quick Add, then the bag, then the checkout link.
 
 ### Phase 3: Remaining sections and a mobile pass (13 Oct, evening)

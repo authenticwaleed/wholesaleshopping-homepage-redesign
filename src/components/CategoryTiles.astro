@@ -1,0 +1,91 @@
+---
+// Shop by category (PLAN.md §6.7): photo tiles into the store's main collections.
+// A swipe row on phones (about 3 tiles visible, so it's obvious it scrolls).
+import { categoryTiles } from '../lib/catalogue.js';
+import { collectionUrl } from '../data/content.js';
+import { sized, srcset } from '../lib/images.js';
+---
+
+<section class="section container" aria-labelledby="categories-title" data-reveal>
+  <div class="section-head">
+    <h2 class="section-title" id="categories-title">Shop by category</h2>
+    <a class="link-more" href={collectionUrl('all')}>Shop all</a>
+  </div>
+  <ul class="rail tiles" role="list">
+    {
+      categoryTiles.map((tile) => (
+        <li>
+          <a class="tile" href={tile.href}>
+            <span class="tile__photo">
+              {tile.image && (
+                <img
+                  src={sized(tile.image, 360)}
+                  srcset={srcset(tile.image, [180, 240, 360, 480])}
+                  sizes="(min-width: 1200px) 180px, (min-width: 900px) 15vw, 28vw"
+                  alt=""
+                  width="360"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+            </span>
+            <span class="tile__label">{tile.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .tiles {
+    grid-auto-columns: 29%;
+  }
+
+  @media (min-width: 600px) {
+    .tiles {
+      grid-auto-columns: 19%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .tiles {
+      grid-auto-columns: calc((100% - 9 * var(--space-3)) / 10);
+    }
+  }
+
+  .tile {
+    display: grid;
+    gap: var(--space-2);
+    text-decoration: none;
+  }
+
+  .tile__photo {
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .tile__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .tile:hover .tile__photo img {
+    transform: scale(1.04);
+  }
+
+  .tile__label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .tile:hover .tile__label {
+    text-decoration: underline;
+  }
+</style>

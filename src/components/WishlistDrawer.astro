@@ -1,0 +1,94 @@
+---
+// Saved products drawer. Items are drawn by src/scripts/wishlist.js, so styles are global (.saved*).
+import Icon from './Icon.astro';
+---
+
+<dialog class="drawer" id="wishlist" aria-labelledby="wishlist-heading">
+  <div class="panel">
+    <div class="panel__head">
+      <h2 class="panel__title" id="wishlist-heading">Saved items</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close saved items">
+        <Icon name="close" />
+      </button>
+    </div>
+    <div class="panel__body">
+      <ul class="saved-list" role="list" data-wishlist-items></ul>
+      <p class="saved-empty" data-wishlist-empty>
+        Nothing saved yet. Tap the heart on any product to keep it here while you plan your order.
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/wishlist.js';
+</script>
+
+<style is:global>
+  .saved-list {
+    padding-inline: var(--space-5);
+  }
+
+  .saved {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .saved__photo img {
+    width: 80px;
+    aspect-ratio: 2 / 3;
+    height: auto;
+    object-fit: cover;
+    background: var(--surface);
+  }
+
+  .saved__info {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+  }
+
+  .saved__title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .saved__price {
+    font-size: var(--text-sm);
+  }
+
+  .saved__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .saved__add {
+    min-height: 40px;
+    padding-inline: var(--space-4);
+  }
+
+  .saved__remove {
+    min-height: var(--tap);
+    border: 0;
+    background: none;
+    font-size: var(--text-xs);
+    text-decoration: underline;
+    color: var(--muted);
+  }
+
+  .saved-empty {
+    padding: var(--space-8) var(--space-5);
+    text-align: center;
+    color: var(--muted);
+  }
+
+  .saved-empty[hidden] {
+    display: none;
+  }
+</style>

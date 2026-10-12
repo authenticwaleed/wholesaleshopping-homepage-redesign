@@ -313,10 +313,18 @@ const nav = mainNav.map((item) => {
     }
 
     .nav__item:hover > .mega,
-    .nav__item:focus-within > .mega {
+    .nav__item:focus-within > .mega,
+    .nav__item.is-open > .mega {
       opacity: 1;
       visibility: visible;
       transition-delay: 120ms;
+    }
+
+    /* Esc closes the menu even while focus is still on its top link */
+    .nav__item.is-dismissed > .mega {
+      opacity: 0;
+      visibility: hidden;
+      transition-delay: 0s;
     }
 
     .mega__inner {

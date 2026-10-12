@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-12T19:36:11.125Z",
+  "fetchedAt": "2026-10-12T20:05:10.570Z",
   "source": "https://www.wholesaleshopping.co.uk",
   "tabs": [
     {
@@ -170,6 +170,228 @@
         "gingerbread-bow-snowflake-print-xmas-legging"
       ]
     }
+  },
+  "tiles": {
+    "new-wholesale-clothing": [
+      {
+        "product": "plain-pleated-details-dress",
+        "title": "Plain Pleated Details Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/9a0f0d73-bd5f-4112-875b-2146acde627e.jpg?v=1791797128"
+      },
+      {
+        "product": "plain-belted-long-trench-coat-blazer",
+        "title": "Plain Belted Long Trench Coat Blazer",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/efe27d83-7ee8-493c-b300-c775fc08029d.jpg?v=1791797209"
+      },
+      {
+        "product": "mesh-overlay-layered-lace-trim-top",
+        "title": "Womens Mesh Overlay Lace Trim Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c0757a78-51dd-4b1b-b5b5-9c384f47f68c.jpg?v=1790675947"
+      },
+      {
+        "product": "floral-print-layered-hem-matching-scarf-cotton-top-1",
+        "title": "Floral Print Ladies Cotton Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/cff9d186-df37-4a7c-9a59-f0b331f67bae.jpg?v=1790674715"
+      }
+    ],
+    "womens-tops": [
+      {
+        "product": "santa-christmas-t-shirt-pack-of-7",
+        "title": "Santa Knitted Christmas Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/bef7c1b6-c556-4d9e-8994-d75cd5944c02.jpg?v=1791292131"
+      },
+      {
+        "product": "reindeer-christmas-t-shirt-pack-of-7",
+        "title": "Reindeer Knitted Christmas Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/99b16e62-8e24-4a93-b585-729ad7f9ffdd.jpg?v=1791292299"
+      },
+      {
+        "product": "mesh-overlay-layered-lace-trim-top",
+        "title": "Womens Mesh Overlay Lace Trim Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c0757a78-51dd-4b1b-b5b5-9c384f47f68c.jpg?v=1790675947"
+      },
+      {
+        "product": "mesh-weave-overlay-layered-top",
+        "title": "Mesh Weave Overlay Layered Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/d372dad7-ae37-457a-982b-e4aeed5323e6.jpg?v=1790674779"
+      }
+    ],
+    "womens-dresses": [
+      {
+        "product": "plain-pleated-details-dress",
+        "title": "Plain Pleated Details Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/9a0f0d73-bd5f-4112-875b-2146acde627e.jpg?v=1791797128"
+      },
+      {
+        "product": "floral-print-two-pockets-loose-fit-cotton-dress",
+        "title": "Loose Fit Cotton Floral Print Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/47d0131d-70c6-47d0-92d1-2728b60ed19d.jpg?v=1790605453"
+      },
+      {
+        "product": "multi-colour-stripe-cowl-neck-dress",
+        "title": "Italian Acrylic Striped Cowl Neck Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/1237473b-8850-4be3-9cb1-22fce92848c2.jpg?v=1790605013"
+      },
+      {
+        "product": "multi-colour-stripe-snood-scarf-dress",
+        "title": "Multicolour Stripe Snood Scarf Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/b47475b0-8bb9-4627-84ab-c19f6bfc1e2b.jpg?v=1789130835"
+      }
+    ],
+    "wholesale-womens-jumpers": [
+      {
+        "product": "sparkle-diamond-pattern-knitted-jumper",
+        "title": "Womens Sparkly Diamond Pattern Jumper",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/47eaee5d-38e8-4dab-9d0f-5ea7e8766639.jpg?v=1790084263"
+      },
+      {
+        "product": "plain-contrast-stitch-knitted-jumper",
+        "title": "Contrast Stitch Womens Knitted Jumper",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/46d1d7f8-8f43-4c51-91fc-b3dfff1e867c.jpg?v=1790083623"
+      },
+      {
+        "product": "plain-ribbed-knit-button-cuff-jumper",
+        "title": "Plain Button Cuff Ribbed Knit Jumper",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/260e8417-7107-443f-8b9c-beda90aad17a.jpg?v=1790083589"
+      },
+      {
+        "product": "cable-knit-pattern-soft-knitted-jumper-2",
+        "title": "Soft Knitted Cable Knit Jumper",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/5c6e48c3-ca06-4e20-8c02-a386ed5d1f6f.jpg?v=1790083556"
+      }
+    ],
+    "womens-coats-jackets": [
+      {
+        "product": "plain-belted-long-trench-coat-blazer",
+        "title": "Plain Belted Long Trench Coat Blazer",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/efe27d83-7ee8-493c-b300-c775fc08029d.jpg?v=1791797209"
+      },
+      {
+        "product": "plain-two-tone-faux-fur-pockets-jacket",
+        "title": "Two Tone Faux Fur Jacket",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/dd2cd8e3-d88c-4ee1-9637-5362f9c7be0f.jpg?v=1790674858"
+      },
+      {
+        "product": "plain-quilted-puffer-jacket",
+        "title": "Womens Plain Quilted Puffer Jacket",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/9c36a86a-276f-404e-a63f-86ce497b0cf7.jpg?v=1790084667"
+      },
+      {
+        "product": "check-print-front-button-up-pockets-longline-blazer",
+        "title": "Check Print Button Front Longline Blazer",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/b5c5f305-b496-429d-9ab8-edd7d1432f45.jpg?v=1790084429"
+      }
+    ],
+    "womens-trousers": [
+      {
+        "product": "plain-knitted-belted-cotton-jogger",
+        "title": "Plain Knitted Belted Cotton Jogger",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c10313b0-0bfc-4462-8dfc-6d9df97810a6.jpg?v=1791809132"
+      },
+      {
+        "product": "plain-corduroy-drawstring-waistband-cotton-trousers",
+        "title": "Corduroy Drawstring Womens Cotton Trousers",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/2487e527-8ddf-4909-aee4-8cbbf71b0d6b.jpg?v=1789827986"
+      },
+      {
+        "product": "plain-drawstring-cotton-trousers",
+        "title": "Plain Drawstring Cotton Trousers",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/05fd3652-5637-4e39-a94f-0fb962acec0b.jpg?v=1785150054"
+      },
+      {
+        "product": "polka-dot-print-drawstring-waistband-cotton-trousers",
+        "title": "Polka Dot Drawstring Cotton Trousers",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/a5db469c-e4bf-4448-9b95-c5548197c0fa.jpg?v=1781959480"
+      }
+    ],
+    "wholesale-plus-size-clothing": [
+      {
+        "product": "plain-knitted-belted-cotton-jogger",
+        "title": "Plain Knitted Belted Cotton Jogger",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c10313b0-0bfc-4462-8dfc-6d9df97810a6.jpg?v=1791809132"
+      },
+      {
+        "product": "plain-belted-long-trench-coat-blazer",
+        "title": "Plain Belted Long Trench Coat Blazer",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/efe27d83-7ee8-493c-b300-c775fc08029d.jpg?v=1791797209"
+      },
+      {
+        "product": "plain-pleated-details-dress",
+        "title": "Plain Pleated Details Dress",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/9a0f0d73-bd5f-4112-875b-2146acde627e.jpg?v=1791797128"
+      },
+      {
+        "product": "mesh-overlay-layered-lace-trim-top",
+        "title": "Womens Mesh Overlay Lace Trim Top",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c0757a78-51dd-4b1b-b5b5-9c384f47f68c.jpg?v=1790675947"
+      }
+    ],
+    "wholesale-women-footwear": [
+      {
+        "product": "suede-buckle-detail-comfortable-loafers-1",
+        "title": "Suede Buckle Detail Comfortable Loafers",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/8f9c9ada-4954-4c7b-ab93-ad7b134e1aa3.jpg?v=1791210156"
+      },
+      {
+        "product": "suede-pointed-toe-zip-closure-ankle-boot",
+        "title": "Suede Pointed Toe Zip Closure Ankle Boot",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/42aa5cfa-f846-422f-acaf-fa77bb8a11f2.jpg?v=1791196616"
+      },
+      {
+        "product": "contrast-trim-lace-up-platform-trainer",
+        "title": "Contrast Trim Womens Platform Trainer",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/1e6d51f5-c9c3-40a2-932b-58c11a34e5f3.jpg?v=1790767707"
+      },
+      {
+        "product": "mesh-buckle-strap-flat-shoes",
+        "title": "Mesh Buckle Strap Womens Flat Shoes",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/37fc9272-1152-46de-b9b8-8577d26a377a.jpg?v=1790335513"
+      }
+    ],
+    "womens-bags": [
+      {
+        "product": "suede-studded-fringe-shoulder-bag",
+        "title": "Suede Studded Fringe Shoulder Bag",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/e79e310c-2528-48ea-af38-d6ccf414c322.jpg?v=1791458335"
+      },
+      {
+        "product": "polka-dot-print-pom-pom-shoulder-bag",
+        "title": "Polka Dot Print Pom Pom Shoulder Bag",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/c498c520-ea0c-4989-b9b7-181bf485e5c3.jpg?v=1791027207"
+      },
+      {
+        "product": "studded-fringe-detail-crossbody-bag",
+        "title": "Studded Fringe Womens Crossbody Bag",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/54c1836f-337a-4b67-bd8a-f6bc7c9ecfb7.jpg?v=1790071578"
+      },
+      {
+        "product": "front-zip-pocket-adjustable-strap-crossbody-bag-2",
+        "title": "Front Zip Pocket Womens Crossbody Bag",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/1ac0a077-6a83-48b4-8459-f83b4feedea0.jpg?v=1790071537"
+      }
+    ],
+    "wholesale-scarves": [
+      {
+        "product": "horse-print-scarves",
+        "title": "Horse Print Scarves",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/25f56aeb-c75e-42b6-b027-48d376cdd8b2.jpg?v=1791797050"
+      },
+      {
+        "product": "abstract-print-scarves-9",
+        "title": "Abstract Print Scarves",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/6668d1df-5575-4bcd-8f30-475d51f728be.jpg?v=1791542204"
+      },
+      {
+        "product": "floral-print-tassel-scarves-12",
+        "title": "Floral Print Tassel Scarves",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/6681eb35-f81d-4a6b-bddf-0f7d00f901d7.jpg?v=1791542119"
+      },
+      {
+        "product": "floral-print-tassel-scarves-11",
+        "title": "Floral Print Tassel Scarves",
+        "image": "https://cdn.shopify.com/s/files/1/1151/7606/files/7d007406-39cc-4fc5-a388-7c0ab031d79e.jpg?v=1791463277"
+      }
+    ]
   },
   "products": [
     {

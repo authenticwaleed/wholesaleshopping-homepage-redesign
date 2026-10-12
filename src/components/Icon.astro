@@ -30,6 +30,17 @@ const ICONS = {
 const { name, size = 24, label, ...rest } = Astro.props;
 const body = ICONS[name];
 if (!body) throw new Error(`Unknown icon: ${name}`);
+
+// Merge here rather than spreading after the defaults: with duplicate HTML attributes the first one wins,
+// so a passed-in fill or stroke-width would otherwise be ignored.
+const attrs = {
+  fill: 'none',
+  stroke: 'currentColor',
+  'stroke-width': '2',
+  'stroke-linecap': 'round',
+  'stroke-linejoin': 'round',
+  ...rest,
+};
 ---
 
 <svg
@@ -37,15 +48,10 @@ if (!body) throw new Error(`Unknown icon: ${name}`);
   width={size}
   height={size}
   viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
   aria-hidden={label ? undefined : 'true'}
   role={label ? 'img' : undefined}
   aria-label={label}
   focusable="false"
-  {...rest}
+  {...attrs}
   set:html={body}
 />

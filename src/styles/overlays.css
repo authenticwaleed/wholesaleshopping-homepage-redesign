@@ -1,0 +1,223 @@
+/* Pop-up panels built on <dialog>: side drawers (bag, wishlist, menu) and a sheet (Quick Add)
+   that rises from the bottom on phones and sits centred on desktop. */
+
+dialog {
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+dialog::backdrop {
+  background: var(--scrim);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 60px;
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.panel__title {
+  font-family: var(--font-display);
+  font-stretch: 75%;
+  font-size: var(--text-xl);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.panel__body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.panel__foot {
+  padding: var(--space-4) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+/* Side drawers: full height, slide in from the edge */
+.drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(440px, 100vw);
+  height: 100dvh;
+}
+
+.drawer--left {
+  inset: 0 auto 0 0;
+  width: min(400px, 92vw);
+}
+
+.drawer > .panel {
+  height: 100%;
+}
+
+/* Sheet: bottom sheet on phones, centred window on desktop */
+.sheet {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100vw;
+}
+
+.sheet > .panel {
+  max-height: 92dvh;
+  border-radius: 16px 16px 0 0;
+}
+
+@media (min-width: 900px) {
+  .sheet {
+    inset: 0;
+    width: min(900px, calc(100vw - 48px));
+    height: fit-content;
+    margin: auto;
+  }
+
+  .sheet > .panel {
+    max-height: calc(100dvh - 48px);
+    border-radius: var(--radius-m);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open]::backdrop {
+    animation: fade-in var(--dur-base) ease-out;
+  }
+
+  .drawer[open] > .panel {
+    animation: slide-from-right var(--dur-base) var(--ease-out);
+  }
+
+  .drawer--left[open] > .panel {
+    animation-name: slide-from-left;
+  }
+
+  .sheet[open] > .panel {
+    animation: rise var(--dur-base) var(--ease-out);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+/* Quantity stepper: − 2 + */
+.stepper {
+  display: inline-grid;
+  grid-template-columns: var(--tap) 3.25rem var(--tap);
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.stepper button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.stepper input {
+  width: 100%;
+  height: var(--tap);
+  border: 0;
+  background: none;
+  text-align: center;
+  font-size: var(--text-base);
+  font-weight: 600;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Radio options styled as chips (colour and pack choices) */
+.option {
+  position: relative;
+  display: inline-flex;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.option > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.option > input:checked + span {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+  font-weight: 600;
+}
+
+.option > input:focus-visible + span {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.option > input:disabled + span {
+  color: var(--muted);
+  text-decoration: line-through;
+  cursor: not-allowed;
+  background: var(--surface);
+}

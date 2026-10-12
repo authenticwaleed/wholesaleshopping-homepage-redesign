@@ -1,12 +1,17 @@
 ---
+// The homepage. Section order and reasoning: PLAN.md §6.
 import Base from '../layouts/Base.astro';
 import PromoBar from '../components/PromoBar.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import ProductCard from '../components/ProductCard.astro';
-import { productTabs } from '../lib/catalogue.js';
-
-const newIn = productTabs[0];
+import TrustStrip from '../components/TrustStrip.astro';
+import CategoryTiles from '../components/CategoryTiles.astro';
+import ProductTabs from '../components/ProductTabs.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import SearchOverlay from '../components/SearchOverlay.astro';
+import QuickAdd from '../components/QuickAdd.astro';
+import BagDrawer from '../components/BagDrawer.astro';
+import WishlistDrawer from '../components/WishlistDrawer.astro';
 ---
 
 <Base
@@ -16,41 +21,17 @@ const newIn = productTabs[0];
   <a class="skip-link" href="#main">Skip to content</a>
   <PromoBar />
   <Header />
+
   <main id="main">
     <Hero />
-    <section class="section container">
-      <div class="section-head">
-        <h2 class="section-title">New In</h2>
-        <a class="link-more" href={newIn.url}>View all</a>
-      </div>
-      <div class="rail product-rail">
-        {newIn.items.slice(0, 12).map((p) => <ProductCard product={p} />)}
-      </div>
-    </section>
+    <TrustStrip />
+    <CategoryTiles />
+    <ProductTabs />
   </main>
+
+  <MobileMenu />
+  <SearchOverlay />
+  <QuickAdd />
+  <BagDrawer />
+  <WishlistDrawer />
 </Base>
-
-<style>
-  .product-rail {
-    grid-auto-columns: 44%;
-  }
-
-  @media (min-width: 600px) {
-    .product-rail {
-      grid-auto-columns: 30%;
-    }
-  }
-
-  @media (min-width: 900px) {
-    .product-rail {
-      grid-auto-columns: calc((100% - 3 * var(--space-3)) / 4);
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .product-rail {
-      grid-auto-columns: calc((100% - 4 * var(--space-4)) / 5);
-      gap: var(--space-4);
-    }
-  }
-</style>

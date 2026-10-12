@@ -1,0 +1,122 @@
+---
+// Trust strip (PLAN.md §6.6): the facts a first-time trade buyer checks before ordering,
+// right under the hero. All figures are from the live site and Trustpilot (notes/real-facts.md).
+import Icon from './Icon.astro';
+import { trust } from '../data/content.js';
+
+const { rating, items } = trust;
+---
+
+<section class="trust" aria-label="Why retailers order from us">
+  <ul class="trust__list container" role="list">
+    <li>
+      <a class="trust__item" href={rating.href} target="_blank" rel="noopener">
+        <span class="trust__stars" aria-hidden="true">
+          {Array.from({ length: 5 }, () => <Icon name="star" size={16} fill="currentColor" stroke-width="0" />)}
+        </span>
+        <span class="trust__title">Rated {rating.score} · {rating.label}</span>
+        <span class="trust__text">{rating.count} reviews on Trustpilot</span>
+      </a>
+    </li>
+    {
+      items.map((item) => (
+        <li>
+          <a class="trust__item" href={item.href}>
+            <Icon name={item.icon} size={22} />
+            <span class="trust__title">{item.title}</span>
+            <span class="trust__text">{item.text}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .trust {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .trust__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    padding-inline: 0;
+  }
+
+  .trust__item {
+    display: grid;
+    align-content: start;
+    gap: 2px;
+    height: 100%;
+    padding: var(--space-4) var(--gutter);
+    text-decoration: none;
+  }
+
+  .trust__item :global(svg) {
+    margin-bottom: var(--space-1);
+  }
+
+  .trust__stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: var(--space-1);
+    color: var(--ink);
+  }
+
+  .trust__stars :global(svg) {
+    margin: 0;
+  }
+
+  .trust__title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .trust__text {
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+
+  .trust__item:hover .trust__title {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 900px) {
+    .trust__list {
+      grid-template-columns: repeat(4, 1fr);
+      padding-inline: var(--gutter);
+    }
+
+    .trust__item {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      column-gap: var(--space-3);
+      padding: var(--space-5) var(--space-4);
+    }
+
+    .trust__item > :global(svg),
+    .trust__stars {
+      grid-row: 1 / span 2;
+      margin: 0;
+    }
+
+    .trust__stars {
+      display: grid;
+      grid-template-columns: repeat(5, 12px);
+      gap: 1px;
+    }
+
+    .trust__stars :global(svg) {
+      width: 12px;
+      height: 12px;
+    }
+
+    li + li .trust__item {
+      border-left: 1px solid var(--line);
+    }
+  }
+</style>
