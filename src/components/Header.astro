@@ -44,7 +44,7 @@ const nav = mainNav.map((item) => {
       <a class="icon-btn header__desktop-only" href={`${STORE}/account`} aria-label="Account">
         <Icon name="user" />
       </a>
-      <button class="icon-btn header__desktop-only" type="button" aria-label="Wishlist" data-open-wishlist>
+      <button class="icon-btn header__desktop-only" type="button" aria-label="Saved items" data-open-wishlist>
         <Icon name="heart" />
         <span class="count-badge" data-wishlist-count data-count="0" aria-hidden="true">0</span>
       </button>
@@ -81,12 +81,12 @@ const nav = mainNav.map((item) => {
                   ))}
                   {item.feature && (
                     <a class="mega__feature" href={item.feature.product.url}>
+                      {/* data-src: menu.js loads the photo when this menu first opens, not with the page */}
                       <img
-                        src={sized(item.feature.product.images[0].src, 360)}
+                        data-src={sized(item.feature.product.images[0].src, 360)}
                         alt=""
                         width="360"
                         height="540"
-                        loading="lazy"
                         decoding="async"
                       />
                       <span class="mega__feature-name">{item.feature.product.title}</span>
@@ -150,7 +150,9 @@ const nav = mainNav.map((item) => {
   /* The store's real logo (public/logo.svg, 893×247) */
   .logo {
     justify-self: center;
-    display: block;
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
   }
 
   .logo img {
@@ -217,7 +219,7 @@ const nav = mainNav.map((item) => {
   }
 
   .quick-links .chip {
-    min-height: 40px;
+    min-height: var(--tap);
   }
 
   /* Desktop */

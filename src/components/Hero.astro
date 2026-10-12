@@ -3,7 +3,7 @@
 // No carousel: one message, real product photography, and a tag linking to the product shown.
 import Icon from './Icon.astro';
 import { getProduct } from '../lib/catalogue.js';
-import { sized, srcset } from '../lib/images.js';
+import { BLANK, cropped, croppedSrcset } from '../lib/images.js';
 import { priceSummary } from '../lib/pricing.js';
 import { hero } from '../data/content.js';
 
@@ -26,17 +26,25 @@ const looks = hero.looks.map(getProduct).filter(Boolean);
       const price = priceSummary(p);
       return (
         <figure class:list={['hero__look', `hero__look--${i + 1}`]}>
-          <img
-            src={sized(p.images[0].src, 900)}
-            srcset={srcset(p.images[0].src, [480, 640, 900, 1200])}
-            sizes="(min-width: 900px) 30vw, 100vw"
-            alt={p.title}
-            width="900"
-            height="1350"
-            loading={i === 0 ? 'eager' : 'lazy'}
-            fetchpriority={i === 0 ? 'high' : undefined}
-            decoding={i === 0 ? 'sync' : 'async'}
-          />
+          {/* Photos come pre-cropped to the box they fill. Both load straight away on desktop, where
+              both are above the fold; phones only show the first, so the second is a blank there. */}
+          <picture>
+            <source
+              media="(max-width: 899px)"
+              srcset={i === 0 ? croppedSrcset(p.images[0].src, [480, 640, 768, 900, 1080], 1.1) : BLANK}
+              sizes="100vw"
+            />
+            <img
+              src={cropped(p.images[0].src, 640, 1.3)}
+              srcset={croppedSrcset(p.images[0].src, [480, 640, 900], 1.3)}
+              sizes="32vw"
+              alt={p.title}
+              width="640"
+              height="832"
+              fetchpriority={i === 0 ? 'high' : undefined}
+              decoding={i === 0 ? 'sync' : 'async'}
+            />
+          </picture>
           <figcaption>
             <a class="hero__tag" href={p.url}>
               <span class="hero__tag-name">{p.title}</span>
@@ -65,11 +73,11 @@ const looks = hero.looks.map(getProduct).filter(Boolean);
   }
 
   /* Mobile: one photo, with the copy over a dark gradient at the bottom. The height leaves room for
-     the header, search and quick links (~215px) so both buttons stay on the first screen. */
+     the header, search and quick links (~225px) so both buttons stay on the first screen. */
   .hero__look {
     position: relative;
     grid-area: 1 / 1;
-    height: clamp(340px, calc(100svh - 215px), 520px);
+    height: clamp(340px, calc(100svh - 225px), 520px);
     width: 100%;
     margin: 0;
   }
@@ -77,6 +85,10 @@ const looks = hero.looks.map(getProduct).filter(Boolean);
   .hero__look--2,
   .hero__look--3 {
     display: none;
+  }
+
+  .hero__look picture {
+    display: contents;
   }
 
   .hero__look img {

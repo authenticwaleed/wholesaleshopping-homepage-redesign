@@ -122,7 +122,7 @@ import { contact, footerLinks, legal, paymentMethods, social, TRUSTPILOT_URL } f
   .footer__contact a {
     display: inline-flex;
     align-items: center;
-    min-height: 32px;
+    min-height: var(--tap);
   }
 
   .footer__muted {
@@ -188,10 +188,13 @@ import { contact, footerLinks, legal, paymentMethods, social, TRUSTPILOT_URL } f
     gap: var(--space-2) var(--space-4);
   }
 
+  /* min-width so short names like "X" are still easy to tap */
   .footer__social a {
     display: inline-flex;
     align-items: center;
-    min-height: 36px;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .footer__payments li {

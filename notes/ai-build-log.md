@@ -189,3 +189,37 @@ The raw material for the AI Build Notes (REQUIREMENTS.md D-3). Add an entry afte
   - The footer showed "−" markers on desktop, because a more specific `[open]` rule beat the desktop override.
   - A white strip sat under the dark footer on phones. The space reserved for the bottom bar moved into the footer's own padding.
   - "How it works" numbers were misaligned. Fixed with equal-width digits; all titles now start at 72 px.
+
+## 13. Phase 4: automated tests, link check, Lighthouse (13 Oct)
+- **Built:**
+  - a Playwright suite (`tests/home.spec.js`) at 4 screen sizes, covering every item in the brief's testing checklist
+  - `scripts/check-links.mjs`, which checks collection and product links against the store's own JSON lists, to stay polite to its rate limiting
+  - `scripts/serve.mjs`, a tiny server for the built site
+- **Surprise 1 – Astro runs its servers in the background:** Astro 7 detected the AI agent (`AI_AGENT` is set) and moved `astro dev` and `astro preview` into the background. That breaks test runners, which expect the server to stay in the foreground. **Fix:** a 50-line Node server for `dist/`, with gzip so speed tests stay realistic.
+- **First test run: 43 passed, 8 failed.** What the failures really were:
+  - **Reduced motion – the test was wrong:** `test.use({ reducedMotion })` wasn't applied. A fresh browser with reduced motion showed the page was correct. **Fix:** `page.emulateMedia()` in the test.
+  - **Real bug – the footer "X" (Twitter) link was 10 px wide.** Now at least 44×44 px. Afterwards every control on phones was raised to 44 px (offer arrows, chips, logo, contact links), and the hero height formula was adjusted so the buttons still fit the first screen.
+  - **Timeouts – a test problem, not a page problem:**
+    - **What happened:** with 4 screen sizes running at once, waiting for the browser's "load" event (every product photo from Shopify's CDN) took over 30 s.
+    - **Measured:** a single page load fires "load" after 1.7 s, so shoppers aren't affected.
+    - **Fix:** tests wait for the page itself (`domcontentloaded`), use 2 workers, and ignore slow-photo console errors from the CDN.
+- **Final result:** 51 passed, 5 skipped by design.
+- **Link check:** 146 OK, 0 broken.
+  - Facebook (HTTP 400) and Trustpilot (403) reject scripts but work in a browser, which I checked by hand.
+  - **Also went wrong:** one run crashed on a network hiccup, so requests now retry. And my cleanup command `pkill -f "serve.mjs …"` matched its own shell and killed it (exit code 144). I now stop the server by its process ID instead.
+- **Lighthouse** (full table in `notes/test-results.md`):
+  - phone performance 90 → **91**, desktop 81 → **92**
+  - accessibility **100**, best practices 96 → **100**
+  - desktop layout shift 0.072 → **0**, desktop LCP 3.3 s → **1.8 s**
+  - **Fixes, all found by reading the audit details rather than guessing:**
+    - a favicon, because the browser's automatic `/favicon.ico` request returned 404
+    - a label mismatch on the "Saved" button
+    - inlined CSS
+    - the second desktop hero photo was lazy-loaded although it's above the fold
+    - photos pre-cropped by Shopify's CDN (`&height=…&crop=top`, checked first with a test request)
+    - mega-menu photos that downloaded while their menus were closed
+    - preloaded fonts
+  - **Biggest single win:** the 88 KB variable font was competing with the hero photo on phones. The design only uses one style of it, so `subset-font` pins it to extra-bold at 75% width: **8 KB**. The headline looks identical.
+- **Learned:**
+  - When a test fails, find out whether the page or the test is wrong. Three of my four failure types were the test.
+  - Read the audit details before fixing: the slowest element on desktop wasn't the photo I assumed.

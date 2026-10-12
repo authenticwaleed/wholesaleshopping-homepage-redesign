@@ -19,7 +19,8 @@ function renderHearts() {
     badge.textContent = count;
     badge.dataset.count = count;
   }
-  const label = count ? `Wishlist, ${count} saved` : 'Wishlist, empty';
+  // Starts with the visible text ("Saved") so voice-control users can say what they see
+  const label = count ? `Saved items, ${count}` : 'Saved items, none';
   for (const button of document.querySelectorAll('[data-open-wishlist]')) button.setAttribute('aria-label', label);
 }
 

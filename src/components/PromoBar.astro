@@ -29,9 +29,9 @@ import { offers } from '../data/content.js';
 <style>
   .promo {
     display: grid;
-    grid-template-columns: 40px 1fr 40px;
+    grid-template-columns: var(--tap) 1fr var(--tap);
     align-items: center;
-    min-height: 40px;
+    min-height: var(--tap);
     background: var(--ink);
     color: var(--paper);
     font-size: var(--text-xs);
@@ -40,8 +40,8 @@ import { offers } from '../data/content.js';
   .promo__nav {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: var(--tap);
+    height: var(--tap);
     padding: 0;
     border: 0;
     background: none;
@@ -71,8 +71,10 @@ import { offers } from '../data/content.js';
   }
 
   .promo__item a {
-    display: block;
-    padding-block: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap);
     line-height: 1.4;
     text-decoration: none;
   }

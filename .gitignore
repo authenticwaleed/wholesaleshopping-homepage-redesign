@@ -26,3 +26,6 @@ playwright-report/
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Lighthouse raw data (the HTML reports in notes/lighthouse/ contain the same data)
+notes/lighthouse/*.json

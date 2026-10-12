@@ -299,11 +299,11 @@ wholesaleshopping-homepage-redesign/
 - [ ] **Checkpoint 2: you test on your own phone, using the dev server over Wi-Fi, and list any issues.**
 
 ### Phase 4: Test and fix (14 Oct, morning)
-- [ ] 4.1 Run the Playwright interaction tests (see §9) at 4 screen sizes.
-- [ ] 4.2 Check every link works, with no `#` placeholders left.
-- [ ] 4.3 Run Lighthouse in mobile mode on the production build and fix the top issues.
-- [ ] 4.4 Fix the bugs found, logging each one and its fix in the AI build log.
-- [ ] 4.5 Take "after" screenshots into `notes/screenshots/after/`.
+- [x] 4.1 Run the Playwright interaction tests (see §9) at 4 screen sizes.
+- [x] 4.2 Check every link works, with no `#` placeholders left.
+- [x] 4.3 Run Lighthouse in mobile mode on the production build and fix the top issues.
+- [x] 4.4 Fix the bugs found, logging each one and its fix in the AI build log.
+- [x] 4.5 Take "after" screenshots into `notes/screenshots/after/`.
 
 ### Phase 5: Deploy (14 Oct, midday)
 - [ ] 5.1 Refresh the product data and make a production build.

@@ -3,7 +3,7 @@
 // images), and the whole banner is one tap target.
 import { banners } from '../data/content.js';
 import { getProduct } from '../lib/catalogue.js';
-import { sized, srcset } from '../lib/images.js';
+import { cropped, croppedSrcset } from '../lib/images.js';
 
 const items = banners.map((b) => ({ ...b, photo: getProduct(b.product)?.images[0] }));
 ---
@@ -13,16 +13,20 @@ const items = banners.map((b) => ({ ...b, photo: getProduct(b.product)?.images[0
     items.map((b) => (
       <a class="banner" href={b.href}>
         {b.photo && (
-          <img
-            src={sized(b.photo.src, 900)}
-            srcset={srcset(b.photo.src, [480, 640, 900, 1200])}
-            sizes="(min-width: 900px) 50vw, 100vw"
-            alt=""
-            width="900"
-            height="1350"
-            loading="lazy"
-            decoding="async"
-          />
+          // Pre-cropped to the banner's shape: portrait (4:5) on phones, landscape (5:4) on desktop
+          <picture>
+            <source media="(min-width: 900px)" srcset={croppedSrcset(b.photo.src, [640, 900, 1200], 0.8)} sizes="50vw" />
+            <img
+              src={cropped(b.photo.src, 640, 1.25)}
+              srcset={croppedSrcset(b.photo.src, [480, 640, 900], 1.25)}
+              sizes="100vw"
+              alt=""
+              width="640"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         )}
         <span class="banner__copy">
           <span class="eyebrow">{b.eyebrow}</span>
@@ -50,6 +54,10 @@ const items = banners.map((b) => ({ ...b, photo: getProduct(b.product)?.images[0
     color: var(--paper);
     text-decoration: none;
     isolation: isolate;
+  }
+
+  .banner picture {
+    display: contents;
   }
 
   .banner img {

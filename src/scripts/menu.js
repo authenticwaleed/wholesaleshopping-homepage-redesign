@@ -14,6 +14,17 @@ document.addEventListener('click', (event) => {
 
 const nav = document.querySelector('.nav');
 if (nav) {
+  // Mega menu photos are only fetched the first time their menu opens
+  const loadPhotos = (event) => {
+    const item = event.target.closest?.('.nav__item.has-mega');
+    for (const img of item?.querySelectorAll('img[data-src]') ?? []) {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    }
+  };
+  nav.addEventListener('pointerover', loadPhotos);
+  nav.addEventListener('focusin', loadPhotos);
+
   const closeAll = () => nav.querySelectorAll('.nav__item.is-open').forEach((item) => item.classList.remove('is-open'));
 
   // Esc closes an open mega menu and returns focus to its top link
