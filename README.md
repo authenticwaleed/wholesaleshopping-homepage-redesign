@@ -27,6 +27,12 @@ npm test           # end-to-end tests at 4 screen sizes (builds and serves dist/
 | `npm run make-font` | Rebuilds the 8 KB display font from Archivo |
 | `npm run make-pdfs` | Turns the drafts in `docs/` into PDFs in `docs/pdf/` (run again after editing them) |
 
+## Deploy (Netlify)
+
+`netlify.toml` holds the build settings: build command `npm run build`, publish directory `dist`, Node 22, caching and `noindex` headers.
+
+In Netlify choose **Add new site → Import an existing project → GitHub**, then pick this repository. Netlify picks up the settings automatically, and every push to `main` redeploys.
+
 ## Stack
 
 Astro 7 (static HTML), plain JavaScript and plain CSS with design tokens. Playwright for tests, Lighthouse for speed and accessibility. No UI framework: the page ships about 9 KB of JavaScript (gzipped) for menus, Quick Add, the bag, search and the wishlist.
